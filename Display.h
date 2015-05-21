@@ -31,12 +31,12 @@ class Display
 
         void drawLevel(Level& level);
         void drawItems();
-        void drawMonster(Level& level, Monster monster);
-        void drawMonsters(Level& level, std::vector<Monster> monsters);
+        void drawMonster(Level& level, Monster& monster);
+        void drawMonsters(Level& level, std::vector<Monster>& monsters);
 
         void output(char c, int x, int y);
 		void output(int i, int x, int y);
-		void output(std::string s, int x, int y);
+		void output(std::string& s, int x, int y);
 		void clearRow(int row);
 		void clearScreen();
 		void moveCursor(Coord location);

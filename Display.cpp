@@ -55,7 +55,7 @@ void Display::drawItems()
 }
 
 //Draw all the monsters on the level
-void Display::drawMonsters(Level& level, std::vector<Monster> monsters)
+void Display::drawMonsters(Level& level, std::vector<Monster>& monsters)
 {
 	for (int i = 0; i < monsters.size(); i++)
 	{
@@ -66,7 +66,7 @@ void Display::drawMonsters(Level& level, std::vector<Monster> monsters)
 }
 
 //Draw a single monster on the level
-void Display::drawMonster(Level& level, Monster monster)
+void Display::drawMonster(Level& level, Monster& monster)
 {
 		move(monster.location.y,monster.location.x);
 		printw("%c",monster.symbol);
@@ -98,7 +98,7 @@ void Display::output(int i, int x, int y)
 
 //Ouput a string starting at a location on the screen immediately
 //TODO: Handle strings that go off the edge of the display
-void Display::output(std::string s, int x, int y)
+void Display::output(std::string& s, int x, int y)
 {
 	move(y,x);
 	printw(s.c_str());

@@ -172,7 +172,7 @@ void Level::makeHalls()
  * TODO: Make sure we're not stacking monsters on top of other monsters or on the character.
  * Bad things could happen if that were the case.
  */
-void Level::addMonster(Monster* monster)
+void Level::addMonster(Monster& monster)
 {
 	bool validSpot=false;
 	while (!validSpot)
@@ -182,8 +182,8 @@ void Level::addMonster(Monster* monster)
 
 		if (squares[x][y].isWalkable())
 		{
-			monster->location.x = x;
-			monster->location.y = y;
+			monster.location.x = x;
+			monster.location.y = y;
 			validSpot=true;
 		}
 	}
@@ -195,7 +195,7 @@ void Level::addStairs()
 	squares[rooms[rooms.size()-1].center.x][rooms[rooms.size()-1].center.y].setType(STAIRS_DOWN);
 }
 
-bool Level::isMonster(Coord coordinate)
+bool Level::isMonster(Coord& coordinate)
 {
 	for (unsigned int i = 0; i < monsters.size(); i++)
 	{
@@ -208,7 +208,7 @@ bool Level::isMonster(Coord coordinate)
 }
 
 
-bool Level::isAllWalls(Coord location)
+bool Level::isAllWalls(Coord& location)
 {
 	for (int i = location.x-1; i <= location.x+1; i++)
 	{
@@ -221,7 +221,7 @@ bool Level::isAllWalls(Coord location)
 	return true;
 }
 
-void Level::updateVisible(Coord playerLocation)
+void Level::updateVisible(Coord& playerLocation)
 {
 	for (int i = 0; i < LEVEL_SIZE_X; i++)
 	{
@@ -241,7 +241,8 @@ void Level::updateVisible(Coord playerLocation)
 			{
 				if (i < LEVEL_SIZE_X && j < LEVEL_SIZE_Y)
 				{
-					if (!isAllWalls(Coord(i,j)))
+					Coord c = Coord(i,j);
+					if (!isAllWalls(c))
 					{
 						squares[i][j].seen = true;
 						squares[i][j].isVisible = true;

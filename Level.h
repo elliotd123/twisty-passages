@@ -40,10 +40,10 @@ class Level
         virtual ~Level();
         void addRoom();
         void makeHalls();
-        void addMonster(Monster* monster);
+        void addMonster(Monster& monster);
         void addStairs();
-        bool isMonster(Coord coordinate);
-        void updateVisible(Coord playerLocation);
+        bool isMonster(Coord& coordinate);
+        void updateVisible(Coord& playerLocation);
 
         Square squares[LEVEL_SIZE_X][LEVEL_SIZE_Y];
         int levelSizeX, levelSizeY;
@@ -51,7 +51,7 @@ class Level
         std::vector<Monster> monsters;
     protected:
     private:
-        bool isAllWalls(Coord location);
+        bool isAllWalls(Coord& location);
 };
 
 #endif // LEVEL_H
