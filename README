@@ -1,5 +1,5 @@
 Twisty Passages - A simple rogue-like dungeon crawler
-Copyright (C) 2014  Elliot Dronebarger
+Copyright (C) 2018  Elliot Dronebarger
 
 This program is currently designed to work only with the ncurses library.
 To compile, you will need the ncurses library and headers (ncurses-dev)
