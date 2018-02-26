@@ -2,15 +2,12 @@ Twisty Passages - A simple rogue-like dungeon crawler
 Copyright (C) 2014  Elliot Dronebarger
 
 This program is currently designed to work only with the ncurses library.
-To compile, you will need libncurses5-dev or other ncurses development
-packages as necessary.
+To compile, you will need the ncurses library and headers (ncurses-dev)
 
-Install should be as simple as:
+Install (You can create a build directory for a nice clean build):
+mkdir build && cd build
+cmake ..
 make
-make install
-
-assuming you have the g++ compiler installed. If you are using a
-different compiler, you will need to edit the makefile accordingly.
 
 This program is IN DEVELOPMENT. It is missing a lot of features
 ---------------------------------------------------------------
