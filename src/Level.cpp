@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Level.h"
+#include <iostream>
+#include <ncurses.h>
 
 Level::Level()
 {
@@ -221,6 +223,76 @@ bool Level::isAllWalls(Coord& location)
 	return true;
 }
 
+bool Level::isLOS(Coord& target, Coord& playerLoc) {
+	double slope = ((double) target.y - playerLoc.y) / ((double) target.x - playerLoc.x);
+	double b = 0.0;
+	bool inf_slope = false;
+	if (playerLoc.x == target.x && playerLoc.y == target.y) {
+		return true;
+	}
+	if (playerLoc.x == target.x) {
+		inf_slope = true;
+	} else {
+		//y = mx + b
+		b = target.y - (slope * target.x);
+	}
+	double step = (target.x - playerLoc.x) * VISIBLE_STEP;
+	double stepY = (target.y - playerLoc.y) * VISIBLE_STEP;
+	bool done = false;
+	Coord loc = Coord(playerLoc.x, playerLoc.y);
+	int testX = loc.x;
+	int testY = loc.y;
+	while (!done) {
+		//Calculate loc.y
+
+		if (!inf_slope) {
+			loc.y = slope * loc.x + b;
+		}
+
+		//Determine if Coord(loc.x,loc.y) is a wall or some such thing
+		if (loc.x < 0 || loc.x > LEVEL_SIZE_X
+			|| loc.y < 0 || loc.y > LEVEL_SIZE_Y) {
+				continue;
+			}
+		
+		Square s = squares[loc.x][loc.y];
+		move(loc.y,loc.x);
+		char placeholder = '*';
+		printw("%c",placeholder);
+		refresh();
+
+		switch (squares[loc.x][loc.y].getType()) {
+			case WALL:
+			case HARD_WALL:
+			case DOOR_CLOSED:
+				return false;
+				break;
+			default:
+				break;
+		}
+
+		//Update and break if necessary
+		if (inf_slope) {
+			loc.y += stepY;
+			if (stepY > 0.0 && loc.y > target.y) {
+				done = true;
+			} else if (loc.y < target.y) {
+				done = true;
+			}
+		} else {
+			loc.x += step;
+			if (step > 0.0 && loc.x > target.x) {
+				done = true;
+			} else if (loc.x < target.x) {
+				done = true;
+			}
+		}
+		
+	}
+
+	return true;
+}
+
 void Level::updateVisible(Coord& playerLocation)
 {
 	for (int i = 0; i < LEVEL_SIZE_X; i++)
@@ -242,7 +314,7 @@ void Level::updateVisible(Coord& playerLocation)
 				if (i < LEVEL_SIZE_X && j < LEVEL_SIZE_Y)
 				{
 					Coord c = Coord(i,j);
-					if (!isAllWalls(c))
+					if (!isAllWalls(c) && isLOS(c,playerLocation))
 					{
 						squares[i][j].seen = true;
 						squares[i][j].isVisible = true;

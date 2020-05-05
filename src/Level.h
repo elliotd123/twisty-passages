@@ -30,6 +30,7 @@ const int MIN_ROOMS = 5;
 const int MAX_ROOMS = 15;
 const int MIN_ROOM_SIZE = 5;
 const int MAX_ROOM_SIZE = 8;
+const double VISIBLE_STEP = 0.1;
 
 
 //TODO: Come up with up and down stairs and ways to move between levels
@@ -52,6 +53,7 @@ class Level
     protected:
     private:
         bool isAllWalls(Coord& location);
+        bool isLOS(Coord& target, Coord& playerLoc);
 };
 
 #endif // LEVEL_H
