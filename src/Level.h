@@ -30,7 +30,9 @@ const int MIN_ROOMS = 5;
 const int MAX_ROOMS = 15;
 const int MIN_ROOM_SIZE = 5;
 const int MAX_ROOM_SIZE = 8;
-const double VISIBLE_STEP = 0.1;
+const double VISIBILITY_ANGLE_INCREMENT = 5.0;
+const double VISIBILITY_LINEAR_INCREMENT = 0.1;
+
 
 
 //TODO: Come up with up and down stairs and ways to move between levels
