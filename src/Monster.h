@@ -28,6 +28,7 @@ class Monster
 
         Coord location;
         char symbol;
+        int hp;
     protected:
     private:
 };

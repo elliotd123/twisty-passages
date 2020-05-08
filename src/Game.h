@@ -37,7 +37,7 @@ public:
 	int currentLevel;
 
 	vector<Level> levels;
-	Monster character;
+	Character character;
 	Display disp;
 
 private:
