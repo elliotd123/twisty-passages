@@ -22,6 +22,7 @@ Monster::Monster()
     //ctor
 	symbol = '@';
 	location = Coord(0,0);
+    hp = 100;
 }
 
 Monster::~Monster()

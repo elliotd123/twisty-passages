@@ -23,6 +23,7 @@
 
 #include "Level.h"
 #include "Monster.h"
+#include "Character.h"
 
 class Display
 {
@@ -34,6 +35,7 @@ class Display
         void drawItems();
         void drawMonster(Level& level, Monster& monster);
         void drawMonsters(Level& level, std::vector<Monster>& monsters);
+        void drawCharStats(Character& character);
 
         void output(char c, int x, int y);
 		void output(int i, int x, int y);

@@ -20,7 +20,7 @@
 Game::Game() {
 	c = c->getInstance();
 	currentLevel = 0;
-	character = Monster();
+	character = Character();
 	disp = Display();
 }
 
@@ -37,6 +37,7 @@ int Game::start()
 	disp.drawItems();
 	disp.drawMonster(levels[currentLevel],character);
 	disp.drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
+	disp.drawCharStats(character);
 	disp.moveCursor(Coord(0,0));
 
 	int c;
@@ -48,6 +49,7 @@ int Game::start()
 		disp.drawItems();
 		disp.drawMonster(levels[currentLevel],character);
 		disp.drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
+		disp.drawCharStats(character);
 		disp.moveCursor(Coord(0,0));
 	}
 	return 0;

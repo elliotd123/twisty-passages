@@ -55,6 +55,12 @@ void Display::drawItems()
 	//TODO: Need items first before we can draw them
 }
 
+void Display::drawCharStats(Character& character) {
+	move(0,0);
+	printw("HP: %i",character.hp);
+	refresh();
+}
+
 //Draw all the monsters on the level
 void Display::drawMonsters(Level& level, std::vector<Monster>& monsters)
 {
