@@ -244,9 +244,9 @@ bool Level::isAllWalls(const Coord& location)
 	return true;
 }
 
-void Level::updateVisible(const Coord& playerLocation)
+void Level::updateVisible(const Character& player)
 {
-	int max_visibility = 10.0;
+	Coord playerLocation = player.location;
 	for (int i = 0; i < levelSizeX; i++)
 	{
 		for (int j = 0; j < levelSizeY; j++)
@@ -257,7 +257,7 @@ void Level::updateVisible(const Coord& playerLocation)
 
 	for (double ang = 0.0; ang < 360.0; ang += c->getDouble("VISIBILITY_ANGLE_INCREMENT")) {
 		bool hitWall = false;
-		for (double i = 0.0; i <= max_visibility; i+= c->getDouble("VISIBILITY_LINEAR_INCREMENT")) {
+		for (double i = 0.0; i <= player.visibility; i+= c->getDouble("VISIBILITY_LINEAR_INCREMENT")) {
 			if (hitWall) {
 				break;
 			}

@@ -17,6 +17,8 @@
 */
 #ifndef LEVEL_H
 #define LEVEL_H
+
+#include "Character.h"
 #include "Config.h"
 #include "Monster.h"
 #include "Room.h"
@@ -38,7 +40,7 @@ class Level
         void addMonster(Monster& monster);
         void addStairs();
         bool isMonster(const Coord& coordinate);
-        void updateVisible(const Coord& playerLocation);
+        void updateVisible(const Character& player);
 
         std::vector<std::vector<Square>> squares;
         int levelSizeX, levelSizeY;

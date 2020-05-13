@@ -36,6 +36,7 @@ class Display
         void drawMonster(Level& level, Monster& monster);
         void drawMonsters(Level& level, std::vector<Monster>& monsters);
         void drawCharStats(Character& character);
+        void drawLevel(int level);
 
         void output(char c, int x, int y);
 		void output(int i, int x, int y);

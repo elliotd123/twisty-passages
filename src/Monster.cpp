@@ -22,10 +22,18 @@ Monster::Monster()
     //ctor
 	symbol = '@';
 	location = Coord(0,0);
-    hp = 100;
+    hp = 10.0;
+    maxHp = 10.0;
+    visibility = 5.0;
 }
 
 Monster::~Monster()
 {
     //dtor
+}
+
+void Monster::update() {
+    if (hp < maxHp) {
+        hp += (maxHp / 1000.0);
+    }
 }

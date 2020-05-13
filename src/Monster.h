@@ -26,9 +26,12 @@ class Monster
         Monster();
         virtual ~Monster();
 
+        void update();
+
         Coord location;
         char symbol;
-        int hp;
+        double hp,maxHp;
+        double visibility;
     protected:
     private:
 };
