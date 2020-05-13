@@ -32,24 +32,29 @@ int Game::start()
 {
 	levels.push_back(Level());
 	character.location = levels[0].rooms[0].center;
-	levels[currentLevel].updateVisible(character.location);
+	levels[currentLevel].updateVisible(character);
 	disp.drawLevel(levels[currentLevel]);
 	disp.drawItems();
 	disp.drawMonster(levels[currentLevel],character);
 	disp.drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
 	disp.drawCharStats(character);
+	disp.drawLevel(currentLevel);
 	disp.moveCursor(Coord(0,0));
 
 	int c;
 	while ((c = disp.getInput()) != 'q')
 	{
 		processInput(c);
-		levels[currentLevel].updateVisible(character.location);
+
+		character.update();
+
+		levels[currentLevel].updateVisible(character);
 		disp.drawLevel(levels[currentLevel]);
 		disp.drawItems();
 		disp.drawMonster(levels[currentLevel],character);
 		disp.drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
 		disp.drawCharStats(character);
+		disp.drawLevel(currentLevel);
 		disp.moveCursor(Coord(0,0));
 	}
 	return 0;

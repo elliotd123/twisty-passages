@@ -56,8 +56,14 @@ void Display::drawItems()
 }
 
 void Display::drawCharStats(Character& character) {
+	move(41,0);
+	printw("HP: %i/%i",(int)character.hp,(int)character.maxHp);
+	refresh();
+}
+
+void Display::drawLevel(int level) {
 	move(0,0);
-	printw("HP: %i",character.hp);
+	printw("Level: %i",level);
 	refresh();
 }
 
