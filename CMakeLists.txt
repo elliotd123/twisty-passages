@@ -29,7 +29,6 @@ add_executable(twisty-test ${twisty-test_SRC})
 target_include_directories(twisty-test PUBLIC "src")
 
 target_link_libraries(twisty-passages curses)
-target_link_libraries(twisty-test curses)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
