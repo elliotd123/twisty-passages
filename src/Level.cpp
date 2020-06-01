@@ -75,12 +75,14 @@ void Level::addRoom()
 		center = Coord(centerX,centerY);
 
 		//Check to see if the room is on the edge of the map
-		if ((location.x + size.x + 2) >= levelSizeX)
+		if ((location.x + size.x + 2) >= levelSizeX
+		    || (location.x - size.x - 2) <= 0)
 		{
 			invalidRoom = true;
 		}
 
-		if ((location.y + size.y + 2) >= levelSizeY)
+		if ((location.y + size.y + 2) >= levelSizeY
+		    || (location.y - size.y - 2) <= 0)
 		{
 			invalidRoom = true;
 		}
@@ -198,7 +200,7 @@ void Level::addStairs()
 	squares[rooms[rooms.size()-1].center.x][rooms[rooms.size()-1].center.y].setType(STAIRS_DOWN);
 }
 
-bool Level::isMonster(Coord& coordinate)
+bool Level::isMonster(const Coord& coordinate)
 {
 	for (unsigned int i = 0; i < monsters.size(); i++)
 	{
@@ -211,7 +213,7 @@ bool Level::isMonster(Coord& coordinate)
 }
 
 
-bool Level::isAllWalls(Coord& location)
+bool Level::isAllWalls(const Coord& location)
 {
 	for (int i = location.x-1; i <= location.x+1; i++)
 	{
@@ -224,7 +226,7 @@ bool Level::isAllWalls(Coord& location)
 	return true;
 }
 
-void Level::updateVisible(Coord& playerLocation)
+void Level::updateVisible(const Coord& playerLocation)
 {
 	int max_visibility = 10.0;
 	for (int i = 0; i < LEVEL_SIZE_X; i++)

@@ -45,8 +45,8 @@ class Level
         void makeHalls();
         void addMonster(Monster& monster);
         void addStairs();
-        bool isMonster(Coord& coordinate);
-        void updateVisible(Coord& playerLocation);
+        bool isMonster(const Coord& coordinate);
+        void updateVisible(const Coord& playerLocation);
 
         Square squares[LEVEL_SIZE_X][LEVEL_SIZE_Y];
         int levelSizeX, levelSizeY;
@@ -54,8 +54,8 @@ class Level
         std::vector<Monster> monsters;
     protected:
     private:
-        bool isAllWalls(Coord& location);
-        bool isLOS(Coord& target, Coord& playerLoc);
+        bool isAllWalls(const Coord& location);
+        bool isLOS(const Coord& target, Coord& playerLoc);
 };
 
 #endif // LEVEL_H
