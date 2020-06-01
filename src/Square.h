@@ -18,7 +18,32 @@
 #ifndef SQUARE_H
 #define SQUARE_H
 
-enum squareType { WALL, HARD_WALL, FLOOR, DOOR_OPEN, DOOR_CLOSED, STAIRS_UP, STAIRS_DOWN };
+enum squareType { 
+    WALL,
+    HARD_WALL,
+    FLOOR,
+    DOOR_OPEN,
+    DOOR_CLOSED,
+    STAIRS_UP,
+    STAIRS_DOWN 
+};
+
+const char squareChar[] = {
+    //WALL
+    '#',
+    //HARD_WALL
+    '#',
+    //FLOOR
+    '.',
+    //DOOR_OPEN,
+    '-',
+    //DOOR_CLOSED,
+    '+',
+    //STAIRS_UP
+    '<',
+    //STAIRS_DOWN
+    '>'
+};
 
 class Square
 {

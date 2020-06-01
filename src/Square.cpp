@@ -22,7 +22,7 @@ Square::Square()
     //ctor
     square = WALL;
     walkable = false;
-    symbol = '#';
+    symbol = squareChar[square];
     seen = false;
     isVisible = false;
 }
@@ -34,43 +34,24 @@ Square::~Square()
 
 bool Square::isWalkable()
 {
-    return walkable;
+    switch (square) {
+        
+        case FLOOR:
+        case DOOR_OPEN:
+        case STAIRS_DOWN:
+        case STAIRS_UP:
+        	return true;
+            break;
+        default:
+            break;
+    }
+    return false;
 }
 
 void Square::setType(squareType s)
 {
     square = s;
-    switch (square)
-    {
-        case WALL:
-            symbol = '#';
-            walkable = false;
-            break;
-        case HARD_WALL:
-            symbol = '#';
-            walkable = false;
-            break;
-        case FLOOR:
-            symbol = '.';
-            walkable = true;
-            break;
-        case DOOR_CLOSED:
-            symbol = '+';
-            walkable = false;
-            break;
-        case DOOR_OPEN:
-            symbol = '/';
-            walkable = true;
-            break;
-        case STAIRS_DOWN:
-        	symbol = '>';
-        	walkable = true;
-        	break;
-        case STAIRS_UP:
-        	symbol = '<';
-        	walkable = true;
-        	break;
-    }
+    symbol = squareChar[s];
 }
 int Square::getType()
 {

@@ -11,6 +11,7 @@ file(GLOB twisty_SRC
 file(GLOB twisty-test_SRC
 	"test/catch.hpp"
 	"test/test_main.cpp"
+	"test/test_square.cpp"
 	"src/Utilities.cpp"
 	"src/Room.cpp"
 	"src/Sqare.cpp"
