@@ -1,7 +1,7 @@
 #include "Config.h"
 
-#include <string>
 #include <fstream>
+#include <string>
 
 Config * Config::instance = 0;
 

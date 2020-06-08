@@ -18,6 +18,7 @@
 #include "Game.h"
 
 Game::Game() {
+	c = c->getInstance();
 	currentLevel = 0;
 	character = Monster();
 	disp = Display();
@@ -144,7 +145,7 @@ void Game::moveLevel(unsigned int keypadPressed)
 			}
 			break;
 		case '>':
-			if (currentLevel < (MAX_LEVELS-1) && (levels[currentLevel].squares[character.location.x][character.location.y].getType() == STAIRS_DOWN))
+			if (currentLevel < ((int) c->data["MAX_LEVELS"] - 1) && (levels[currentLevel].squares[character.location.x][character.location.y].getType() == STAIRS_DOWN))
 			{
 				if ((currentLevel+1) > (levels.size()-1))
 					levels.push_back(Level());

@@ -20,6 +20,7 @@
 #include <iostream>
 #include <ncurses.h>
 #include <vector>
+
 #include "Level.h"
 #include "Monster.h"
 

@@ -19,13 +19,13 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include "Level.h"
-#include "Display.h"
-#include "Monster.h"
 #include <ncurses.h>
 #include <vector>
 
-const int MAX_LEVELS = 50;
+#include "Config.h"
+#include "Display.h"
+#include "Level.h"
+#include "Monster.h"
 
 using namespace std;
 
@@ -44,6 +44,7 @@ private:
 	void processInput(int input);
 	void moveCharacter(unsigned int keypadPressed);
 	void moveLevel(unsigned int keypadPressed);
+	Config * c;
 };
 
 #endif /* GAME_H_ */

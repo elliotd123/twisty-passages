@@ -17,21 +17,13 @@
 */
 #ifndef LEVEL_H
 #define LEVEL_H
-#include "Square.h"
-#include "Room.h"
-#include "Monster.h"
-#include "Utilities.h"
-#include <vector>
-
-const int MIN_ROOMS = 5;
-//Too many rooms may cause the level generation to never complete. They have to have space in between each room.
-const int MAX_ROOMS = 15;
-const int MIN_ROOM_SIZE = 5;
-const int MAX_ROOM_SIZE = 8;
-const double VISIBILITY_ANGLE_INCREMENT = 5.0;
-const double VISIBILITY_LINEAR_INCREMENT = 0.1;
-
 #include "Config.h"
+#include "Monster.h"
+#include "Room.h"
+#include "Square.h"
+#include "Utilities.h"
+
+#include <vector>
 
 
 
