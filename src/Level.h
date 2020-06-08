@@ -31,6 +31,8 @@ const int MAX_ROOM_SIZE = 8;
 const double VISIBILITY_ANGLE_INCREMENT = 5.0;
 const double VISIBILITY_LINEAR_INCREMENT = 0.1;
 
+#include "Config.h"
+
 
 
 //TODO: Come up with up and down stairs and ways to move between levels
@@ -54,6 +56,7 @@ class Level
     private:
         bool isAllWalls(const Coord& location);
         bool isLOS(const Coord& target, Coord& playerLoc);
+        Config * c;
 };
 
 #endif // LEVEL_H

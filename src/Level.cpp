@@ -20,10 +20,11 @@
 #include <ncurses.h>
 #include <cmath>
 #include "Config.h"
+#include <cassert>
 
 Level::Level()
 {
-	Config * c = c->getInstance();
+	c = c->getInstance();
     levelSizeX = c->data["LEVEL_SIZE_X"];
     levelSizeY = c->data["LEVEL_SIZE_Y"];
 
@@ -57,6 +58,7 @@ void Level::addRoom()
 	bool invalidRoom;
 	Coord location,center;
 	Dimension size;
+	int attempts = 0;
 	do
 	{
 		invalidRoom = false;
@@ -94,10 +96,21 @@ void Level::addRoom()
 		{
 			for (int j = location.y-1; j < (location.y+size.y+1); j++)
 			{
-				if (squares[i][j].getType() == FLOOR) invalidRoom = true;
+				if (i > (int) c->data["LEVEL_SIZE_X"] - 1
+				    || j > (int) c->data["LEVEL_SIZE_Y"] - 1) {
+						invalidRoom = true;
+					} else {
+						if (squares[i][j].getType() == FLOOR) invalidRoom = true;
+					}
 			}
 		}
 
+		attempts += 1;
+		if (attempts > 50) {
+			//TODO: Log entry here
+			//Couldn't find a place to put the room. We gotta stop here.
+			return;
+		}
 
 	} while (invalidRoom);
 
