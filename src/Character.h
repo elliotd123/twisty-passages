@@ -10,3 +10,4 @@ class Character : public Monster {
 };
 
 #endif
+
