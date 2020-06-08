@@ -19,20 +19,22 @@
 #include <iostream>
 #include <ncurses.h>
 #include <cmath>
+#include "Config.h"
 
 Level::Level()
 {
-    levelSizeX = LEVEL_SIZE_X;
-    levelSizeY = LEVEL_SIZE_Y;
+	Config * c = c->getInstance();
+    levelSizeX = c->data["LEVEL_SIZE_X"];
+    levelSizeY = c->data["LEVEL_SIZE_Y"];
 
-    //Initialize all squares with default constructor (As walls)
-    for (int i = 0; i < levelSizeY; i++)
-    {
-        for (int j = 0; j < levelSizeX; j++)
-        {
-            squares[j][i] = Square();
-        }
-    }
+	//Initialize all squares with default constructor (As walls)
+	for (int i = 0; i < levelSizeX; i++) {
+		squares.push_back(std::vector<Square>());
+		for (int j = 0; j < levelSizeY; j++) {
+			squares[i].push_back(Square());
+		}
+	}
+
     static Random rand = Random();
 
     int rand_int = rand.getInt(MIN_ROOMS,MAX_ROOMS);
@@ -65,8 +67,8 @@ void Level::addRoom()
 		size = Dimension(sizeX,sizeY);
 
 		//Create random room location
-		locX = (rand() % (LEVEL_SIZE_X - sizeX)+1);
-		locY = (rand() % (LEVEL_SIZE_Y - sizeY)+1);
+		locX = (rand() % (levelSizeX - sizeX)+1);
+		locY = (rand() % (levelSizeY - sizeY)+1);
 		location = Coord(locX,locY);
 
 		//Pick a square in the room to be the "Center" of the room. May be anywhere in the room
@@ -182,8 +184,8 @@ void Level::addMonster(Monster& monster)
 	bool validSpot=false;
 	while (!validSpot)
 	{
-		int x = rand() % LEVEL_SIZE_X;
-		int y = rand() % LEVEL_SIZE_Y;
+		int x = rand() % levelSizeX;
+		int y = rand() % levelSizeY;
 
 		if (squares[x][y].isWalkable())
 		{
@@ -229,9 +231,9 @@ bool Level::isAllWalls(const Coord& location)
 void Level::updateVisible(const Coord& playerLocation)
 {
 	int max_visibility = 10.0;
-	for (int i = 0; i < LEVEL_SIZE_X; i++)
+	for (int i = 0; i < levelSizeX; i++)
 	{
-		for (int j = 0; j < LEVEL_SIZE_Y; j++)
+		for (int j = 0; j < levelSizeY; j++)
 		{
 			squares[i][j].isVisible = false;
 		}

@@ -21,10 +21,13 @@
 #include "Monster.h"
 #include "Game.h"
 
+#include "Config.h"
+
 using namespace std;
 
 int main()
 {
+	Config * c = c->getInstance();
 	Game game = Game();
 	int result = game.start();
 	return result;

@@ -23,8 +23,6 @@
 #include "Utilities.h"
 #include <vector>
 
-const int LEVEL_SIZE_X = 100;
-const int LEVEL_SIZE_Y = 40;
 const int MIN_ROOMS = 5;
 //Too many rooms may cause the level generation to never complete. They have to have space in between each room.
 const int MAX_ROOMS = 15;
@@ -48,7 +46,7 @@ class Level
         bool isMonster(const Coord& coordinate);
         void updateVisible(const Coord& playerLocation);
 
-        Square squares[LEVEL_SIZE_X][LEVEL_SIZE_Y];
+        std::vector<std::vector<Square>> squares;
         int levelSizeX, levelSizeY;
         std::vector<Room> rooms;
         std::vector<Monster> monsters;

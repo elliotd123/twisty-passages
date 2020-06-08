@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Display.h"
+#include "Config.h"
 
 Display::Display()
 {
@@ -109,8 +110,9 @@ void Display::output(std::string& s, int x, int y)
 //Set an entire row to ' '
 void Display::clearRow(int row)
 {
+	Config * c = c->getInstance();
 	char blank = ' ';
-	for (int i = 0; i < LEVEL_SIZE_X; i++)
+	for (int i = 0; i < c->data["LEVEL_SIZE_X"]; i++)
 	{
 		move(row,i);
 		printw("%c",blank);
