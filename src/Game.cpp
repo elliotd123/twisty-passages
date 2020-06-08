@@ -145,7 +145,7 @@ void Game::moveLevel(unsigned int keypadPressed)
 			}
 			break;
 		case '>':
-			if (currentLevel < ((int) c->data["MAX_LEVELS"] - 1) && (levels[currentLevel].squares[character.location.x][character.location.y].getType() == STAIRS_DOWN))
+			if (currentLevel < ((int) c->getInt("MAX_LEVELS") - 1) && (levels[currentLevel].squares[character.location.x][character.location.y].getType() == STAIRS_DOWN))
 			{
 				if ((currentLevel+1) > (levels.size()-1))
 					levels.push_back(Level());

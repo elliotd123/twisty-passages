@@ -10,6 +10,7 @@ file(GLOB twisty_SRC
 
 file(GLOB twisty-test_SRC
 	"test/catch.hpp"
+	"test/test_config.cpp"
 	"test/test_main.cpp"
 	"test/test_square.cpp"
 	"src/Config.cpp"
@@ -35,5 +36,7 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
+configure_file(${CMAKE_SOURCE_DIR}/config.json ${CMAKE_CURRENT_BINARY_DIR}/config.json COPYONLY)
+
 add_custom_command(TARGET twisty-test POST_BUILD
-	COMMAND ${CMAKE_CURRENT_BINARY_DIR}/twisty-test)
+	COMMAND ${CMAKE_CURRENT_BINARY_DIR}/twisty-test || true)
