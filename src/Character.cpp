@@ -6,5 +6,6 @@ Character::Character() {
 }
 
 Character::~Character() {
-    
+
 }
+
