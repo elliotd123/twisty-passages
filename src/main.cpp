@@ -17,8 +17,9 @@
 */
 #include <iostream>
 
-#include "Level.h"
 #include "Display.h"
+#include "Level.h"
+#include "Logger.h"
 #include "Monster.h"
 #include "Game.h"
 
@@ -26,7 +27,10 @@ using namespace std;
 
 int main()
 {
+	Logger &l = Logger::getInstance();
+	l.log(Logger::FILE,"Starting game");
 	Game game = Game();
 	int result = game.start();
+	l.log(Logger::FILE|Logger::STDOUT,"Game completed, result: " + std::to_string(result));
 	return result;
 }
