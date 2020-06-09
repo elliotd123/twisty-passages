@@ -19,6 +19,7 @@ file(GLOB twisty-test_SRC
 	"src/Sqare.cpp"
 	"src/Level.cpp"
 	"src/Square.cpp"
+	"src/Logger.cpp"
 )
 
 
