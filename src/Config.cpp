@@ -24,7 +24,7 @@ int Config::getInt(std::string key) {
     try {
         result = (int) data[key];
     } catch (nlohmann::detail::type_error e) {
-        //TODO: Log error
+        logger.log(Logger::FILE,"Error in config getting int for key: " + key);
         result = -1;
     }
     return result;
@@ -35,7 +35,7 @@ double Config::getDouble(std::string key) {
     try {
         result = (double) data[key];
     } catch (nlohmann::detail::type_error e) {
-        //TODO: Log error
+        logger.log(Logger::FILE,"Error in config getting double for key: " + key);
         result = -1.0;
     }
     return result;
@@ -46,7 +46,7 @@ std::string Config::getString(std::string key) {
     try {
         result = std::string(data[key]);
     } catch (nlohmann::detail::type_error e) {
-        //TODO: Log error
+        logger.log(Logger::FILE,"Error in config getting string for key: " + key);
         result = "";
     }
     return result;
@@ -57,7 +57,7 @@ bool Config::getBool(std::string key) {
     try {
         result = (bool) data[key];
     } catch (nlohmann::detail::type_error e) {
-        //TODO: Log error
+        logger.log(Logger::FILE,"Error in config getting bool for key: " + key);
         result = false;
     }
     return result;

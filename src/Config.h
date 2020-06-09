@@ -4,15 +4,20 @@
 #include <string>
 
 #include "json.hpp"
+#include "Logger.h"
 
 #define DEFAULT_CONFIG_FILE "config.json"
 
 using json = nlohmann::json;
 
 class Config {
-    static Config * instance;
 
-    Config();
+    private:
+        static Config * instance;
+
+        Logger &logger = Logger::getInstance();
+
+        Config();
 
     public:
         static Config * getInstance();
