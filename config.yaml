@@ -1,9 +1,18 @@
+#Each level has a static size
 LEVEL_SIZE_X: 100
 LEVEL_SIZE_Y: 40
+
+#Maximum number of levels (Too few can cause some weird issues)
 MAX_LEVELS: 50
+
+#Min/max rooms on each level
 MIN_ROOMS: 5
 MAX_ROOMS: 15
+
+#Min/max room sizes
 MIN_ROOM_SIZE: 5
 MAX_ROOM_SIZE: 8
+
+#When calculating what can be seen, we use these
 VISIBILITY_ANGLE_INCREMENT: 5.0
 VISIBILITY_LINEAR_INCREMENT: 0.1

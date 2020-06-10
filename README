@@ -1,10 +1,18 @@
 Twisty Passages - A simple rogue-like dungeon crawler
-Copyright (C) 2018  Elliot Dronebarger
+Copyright (C) 2020  Elliot Dronebarger
 
 This program is currently designed to work only with the ncurses library.
-To compile, you will need the ncurses library and headers (ncurses-dev)
+To compile, you will need:
+- The ncurses library and headers (ncurses-dev)
+- The yaml-cpp submodule
 
-Install (You can create a build directory for a nice clean build):
+Building:
+git submodule update --init
+mkdir ext/yaml-cpp/build
+cd ext/yaml-cpp/build && cmake -DYAML_BUILD_SHARED_LIBS=ON ..
+make
+
+cd ../../..
 mkdir build && cd build
 cmake ..
 make
@@ -12,7 +20,3 @@ make
 This program is IN DEVELOPMENT. It is missing a lot of features
 ---------------------------------------------------------------
 There are no monsters or items yet.
-There are some bugs and things that need to be improved.
-
-I appreciate any feedback or suggestions:
-edon22@gmail.com
