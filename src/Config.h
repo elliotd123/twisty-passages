@@ -3,12 +3,10 @@
 
 #include <string>
 
-#include "json.hpp"
+#include "yaml-cpp/yaml.h"
 #include "Logger.h"
 
-#define DEFAULT_CONFIG_FILE "config.json"
-
-using json = nlohmann::json;
+#define DEFAULT_CONFIG_FILE "config.yaml"
 
 class Config {
 
@@ -25,7 +23,7 @@ class Config {
         double getDouble(std::string key);
         std::string getString(std::string key);
         bool getBool(std::string key);
-        json data;
+        YAML::Node data;
 };
 
 #endif
