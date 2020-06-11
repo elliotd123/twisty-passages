@@ -8,15 +8,10 @@ To compile, you will need:
 
 Building:
 git submodule update --init
-mkdir ext/yaml-cpp/build
-cd ext/yaml-cpp/build && cmake -DYAML_BUILD_SHARED_LIBS=ON ..
+cd ext/yaml-cpp/ && cmake .
 make
 
-cd ../../..
+cd ../..
 mkdir build && cd build
 cmake ..
 make
-
-This program is IN DEVELOPMENT. It is missing a lot of features
----------------------------------------------------------------
-There are no monsters or items yet.
