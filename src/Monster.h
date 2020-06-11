@@ -36,6 +36,7 @@ class Monster
         double attack,defense;
         double visibility;
         std::string description;
+        std::string classname;
 
     protected:
     private:

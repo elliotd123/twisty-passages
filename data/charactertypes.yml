@@ -1,5 +1,13 @@
 swordsman:
-  HP: 10
-  AT: 10
-  DEF: 10
+  ClassName: "Swordsman"
+  HP: 10.0
+  AT: 10.0
+  DEF: 10.0
   Description: "Main character. They are pretty good with a sword"
+
+tourist:
+  ClassName: "Tourist"
+  HP: 7.0
+  AT: 3.0
+  DEF: 3.0
+  Description: "Tourist. Very weak, but has some secrets up their sleeve..."

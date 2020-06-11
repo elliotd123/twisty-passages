@@ -17,6 +17,7 @@
 */
 #include "CharacterData.h"
 #include "Game.h"
+#include "Logger.h"
 
 Game::Game() {
 	c = c->getInstance();
@@ -24,6 +25,15 @@ Game::Game() {
 	CharacterData &ch = CharacterData::getInstance();
 	//TODO: We'll have to restructure this at some point to allow other character types
 	character = ch.getCharacterByName("swordsman");
+
+	Logger & l = Logger::getInstance();
+
+	std::vector<Character> characters = ch.getCharacters();
+	l.log(Logger::FILE, "List of available characters:");
+	for (int i = 0; i < characters.size(); i++) {
+		l.log(Logger::FILE, characters[i].classname);
+	}
+
 	disp = Display();
 }
 

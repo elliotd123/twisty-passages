@@ -20,6 +20,8 @@ Character CharacterData::getCharacterByName(std::string name) {
         c.maxHp = data[name]["HP"].as<double>();
         c.attack = data[name]["AT"].as<double>();
         c.defense = data[name]["DEF"].as<double>();
+        c.description = data[name]["Description"].as<std::string>();
+        c.classname = data[name]["ClassName"].as<std::string>();
     }
     return c;
 }
@@ -27,12 +29,15 @@ Character CharacterData::getCharacterByName(std::string name) {
 std::vector<Character> CharacterData::getCharacters() {
 
     std::vector<Character> characters;
-    for (int i = 0; i < data.size(); i++) {
+    for (YAML::const_iterator it = data.begin(); it != data.end(); ++it) {
         Character c = Character();
-        c.hp = data[i]["HP"].as<double>();
-        c.maxHp = data[i]["HP"].as<double>();
-        c.attack = data[i]["AT"].as<double>();
-        c.defense = data[i]["DEF"].as<double>();
-        c.description = data[i]["Description"].as<std::string>();
+        c.hp = it->second["HP"].as<double>();
+        c.maxHp = it->second["HP"].as<double>();
+        c.attack = it->second["AT"].as<double>();
+        c.defense = it->second["DEF"].as<double>();
+        c.description = it->second["Description"].as<std::string>();
+        c.classname = it->second["ClassName"].as<std::string>();
+        characters.push_back(c);
     }
+    return characters;
 }
