@@ -1,0 +1,5 @@
+swordsman:
+  HP: 10
+  AT: 10
+  DEF: 10
+  Description: "Main character. They are pretty good with a sword"

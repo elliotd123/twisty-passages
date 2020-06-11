@@ -15,12 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "CharacterData.h"
 #include "Game.h"
 
 Game::Game() {
 	c = c->getInstance();
 	currentLevel = 0;
-	character = Character();
+	CharacterData &ch = CharacterData::getInstance();
+	//TODO: We'll have to restructure this at some point to allow other character types
+	character = ch.getCharacterByName("swordsman");
 	disp = Display();
 }
 

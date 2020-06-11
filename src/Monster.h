@@ -18,6 +18,8 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
+#include <string>
+
 #include "Utilities.h"
 
 class Monster
@@ -31,7 +33,10 @@ class Monster
         Coord location;
         char symbol;
         double hp,maxHp;
+        double attack,defense;
         double visibility;
+        std::string description;
+
     protected:
     private:
 };

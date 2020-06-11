@@ -17,6 +17,7 @@
 */
 #include <iostream>
 
+#include "CharacterData.h"
 #include "Display.h"
 #include "Level.h"
 #include "Logger.h"
@@ -29,6 +30,10 @@ int main()
 {
 	Logger &l = Logger::getInstance();
 	l.log(Logger::FILE,"Starting game");
+
+	//Load up character data
+	CharacterData &ch = CharacterData::getInstance();
+
 	Game game = Game();
 	int result = game.start();
 	l.log(Logger::FILE|Logger::STDOUT,"Game completed, result: " + std::to_string(result));

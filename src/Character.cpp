@@ -8,4 +8,3 @@ Character::Character() {
 Character::~Character() {
 
 }
-
