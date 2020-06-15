@@ -4,6 +4,7 @@ swordsman:
   AT: 10.0
   DEF: 10.0
   Description: "Main character. They are pretty good with a sword"
+  Symbol: "@"
 
 tourist:
   ClassName: "Tourist"
@@ -11,3 +12,4 @@ tourist:
   AT: 3.0
   DEF: 3.0
   Description: "Tourist. Very weak, but has some secrets up their sleeve..."
+  Symbol: "@"

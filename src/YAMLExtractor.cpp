@@ -1,11 +1,25 @@
 #include "YAMLExtractor.h"
+#include <sstream>
+#include <fstream>
 
 YAMLExtractor::YAMLExtractor() {
 
 }
 
 YAMLExtractor::YAMLExtractor(std::string file) {
-    YAMLData = YAML::LoadFile(file);
+    std::ifstream ifs(file);
+    std::stringstream ss;
+
+    ss << ifs.rdbuf();
+    dataString = ss.str();
+
+    ifs.close();
+    
+    reloadYAML();
+}
+
+void YAMLExtractor::reloadYAML() {
+    YAMLData = YAML::Load(dataString);
     currentNode = YAMLData;
 }
 
