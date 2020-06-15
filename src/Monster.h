@@ -37,6 +37,7 @@ class Monster
         double visibility;
         std::string description;
         std::string classname;
+        std::string keyname;
 
     protected:
     private:

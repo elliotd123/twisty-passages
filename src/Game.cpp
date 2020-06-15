@@ -31,7 +31,7 @@ Game::Game() {
 	std::vector<Character> characters = ch.getCharacters();
 	l.log(Logger::FILE, "List of available characters:");
 	for (int i = 0; i < characters.size(); i++) {
-		l.log(Logger::FILE, characters[i].classname);
+		l.log(Logger::FILE, characters[i].keyname);
 	}
 
 	disp = Display();

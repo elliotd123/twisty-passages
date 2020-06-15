@@ -4,17 +4,16 @@
 #include "yaml-cpp/yaml.h"
 #include "Character.h"
 #include "Logger.h"
+#include "YAMLExtractor.h"
 
 #include <string>
 #include <vector>
 
 #define CHARACTER_DATA_FILE "data/charactertypes.yml"
 
-class CharacterData {
+class CharacterData : public YAMLExtractor {
     private:
         CharacterData();
-
-        YAML::Node data;
 
         Logger &l = Logger::getInstance();
 
@@ -23,6 +22,7 @@ class CharacterData {
         static CharacterData & getInstance();
         
         Character getCharacterByName(std::string name);
+        std::vector<Character> characters;
         std::vector<Character> getCharacters();
 
 };

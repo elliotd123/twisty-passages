@@ -44,7 +44,7 @@ set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
 configure_file(${CMAKE_SOURCE_DIR}/config.yaml ${CMAKE_CURRENT_BINARY_DIR}/config.yaml COPYONLY)
-file(COPY data DESTINATION data)
+file(COPY data DESTINATION .)
 
 add_custom_command(TARGET twisty-test POST_BUILD
 	COMMAND ${CMAKE_CURRENT_BINARY_DIR}/twisty-test || true)
