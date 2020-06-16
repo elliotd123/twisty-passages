@@ -13,6 +13,7 @@ CharacterData::CharacterData() : YAMLExtractor(CHARACTER_DATA_FILE) {
         c.defense = get<double>("DEF");
         c.description = getString("Description");
         c.classname = getString("ClassName");
+        c.symbol = getString("Symbol")[0];
         characters.push_back(c);
     }
 }
@@ -27,14 +28,12 @@ CharacterData & CharacterData::getInstance() {
 }
 
 Character CharacterData::getCharacterByName(std::string name) {
+    for (Character c : characters) {
+        if (c.keyname == name) {
+            return c;
+        }
+    }
     Character c = Character();
-    currentNode = YAML::Node(YAMLData[name]);
-    c.hp = get<double>("HP");
-    c.maxHp = get<double>("HP");
-    c.attack = get<double>("AT");
-    c.defense = get<double>("DEF");
-    c.description = getString("Description");
-    c.classname = getString("ClassName");
     return c;
 }
 
