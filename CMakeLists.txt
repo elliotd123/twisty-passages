@@ -35,9 +35,9 @@ target_include_directories(twisty-test PUBLIC "src")
 target_include_directories(twisty-test PUBLIC "${CMAKE_SOURCE_DIR}/ext/yaml-cpp/include")
 
 target_link_libraries(twisty-passages curses)
-target_link_libraries(twisty-passages "${CMAKE_SOURCE_DIR}/ext/yaml-cpp/libyaml-cpp.a")
+target_link_libraries(twisty-passages "${CMAKE_SOURCE_DIR}/ext/yaml-cpp/build/libyaml-cpp.a")
 
-target_link_libraries(twisty-test "${CMAKE_SOURCE_DIR}/ext/yaml-cpp/libyaml-cpp.a")
+target_link_libraries(twisty-test "${CMAKE_SOURCE_DIR}/ext/yaml-cpp/build/libyaml-cpp.a")
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

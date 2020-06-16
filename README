@@ -8,10 +8,11 @@ To compile, you will need:
 
 Building:
 git submodule update --init
-cd ext/yaml-cpp/ && cmake .
+mkdir -p ext/yaml-cpp/build && cd ext/yaml-cpp/build
+cmake ..
 make
 
-cd ../..
-mkdir build && cd build
+cd ../../..
+mkdir -p build && cd build
 cmake ..
 make
