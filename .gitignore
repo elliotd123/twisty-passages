@@ -2,4 +2,3 @@ build/
 .vscode/
 *.gch
 twisty.log
-ext/yaml-cpp
