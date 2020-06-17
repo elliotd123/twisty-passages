@@ -13,7 +13,7 @@ class Config {
     private:
         static Config * instance;
 
-        Logger &logger = Logger::getInstance();
+        Logger *logger = logger->getInstance();
 
         Config();
 
@@ -24,6 +24,7 @@ class Config {
         std::string getString(std::string key);
         bool getBool(std::string key);
         YAML::Node data;
+        void clean();
 };
 
 #endif

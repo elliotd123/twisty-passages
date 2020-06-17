@@ -72,3 +72,7 @@ bool Config::getBool(std::string key) {
     }
     return result;
 }
+
+void Config::clean() {
+    delete(instance);
+}

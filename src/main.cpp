@@ -18,6 +18,7 @@
 #include <iostream>
 
 #include "CharacterData.h"
+#include "Config.h"
 #include "Display.h"
 #include "Level.h"
 #include "Logger.h"
@@ -28,14 +29,20 @@ using namespace std;
 
 int main()
 {
-	Logger &l = Logger::getInstance();
-	l.log(Logger::FILE,"Starting game");
+	Config *c = c->getInstance();
+	Logger *l = l->getInstance();
+	CharacterData *ch = ch->getInstance();
 
-	//Load up character data
-	CharacterData &ch = CharacterData::getInstance();
+	l->log(Logger::FILE,"Starting game");
 
 	Game game = Game();
 	int result = game.start();
-	l.log(Logger::FILE|Logger::STDOUT,"Game completed, result: " + std::to_string(result));
+
+	l->log(Logger::FILE|Logger::STDOUT,"Game completed, result: " + std::to_string(result));
+
+	ch->clean();
+	l->clean();
+	c->clean();
+	
 	return result;
 }

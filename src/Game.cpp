@@ -22,16 +22,16 @@
 Game::Game() {
 	c = c->getInstance();
 	currentLevel = 0;
-	CharacterData &ch = CharacterData::getInstance();
+	CharacterData *ch = ch->getInstance();
 	//TODO: We'll have to restructure this at some point to allow other character types
-	character = ch.getCharacterByName("swordsman");
+	character = ch->getCharacterByName("swordsman");
 
-	Logger & l = Logger::getInstance();
+	Logger * l = l->getInstance();
 
-	std::vector<Character> characters = ch.getCharacters();
-	l.log(Logger::FILE, "List of available characters:");
+	std::vector<Character> characters = ch->getCharacters();
+	l->log(Logger::FILE, "List of available characters:");
 	for (int i = 0; i < characters.size(); i++) {
-		l.log(Logger::FILE, characters[i].keyname);
+		l->log(Logger::FILE, characters[i].keyname);
 	}
 
 	disp = Display();

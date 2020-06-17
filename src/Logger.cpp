@@ -5,6 +5,8 @@
 
 #include "Logger.h"
 
+Logger * Logger::instance = 0;
+
 Logger::Logger() {
     logFile = "twisty.log";
     fileStream = std::ofstream(logFile);
@@ -15,9 +17,11 @@ Logger::~Logger() {
     fileStream.close();
 }
 
-Logger & Logger::getInstance() {
-    static Logger l;
-    return l;
+Logger * Logger::getInstance() {
+    if (!instance) {
+        instance = new Logger();
+    };
+    return instance;
 }
 
 void Logger::log(const int facility, const std::string message) {
@@ -40,4 +44,8 @@ void Logger::log(const int facility, const std::string message) {
     if (facility & STDOUT) {
         std::cout << finalMessage << "\n";
     }
+}
+
+void Logger::clean() {
+    delete instance;
 }

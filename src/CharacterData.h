@@ -15,15 +15,18 @@ class CharacterData : public YAMLExtractor {
     private:
         CharacterData();
 
-        Logger &l = Logger::getInstance();
+        Logger *l = l->getInstance();
+        static CharacterData * instance;
 
     public:
         ~CharacterData();
-        static CharacterData & getInstance();
+        static CharacterData * getInstance();
         
         Character getCharacterByName(std::string name);
         std::vector<Character> characters;
         std::vector<Character> getCharacters();
+
+        void clean();
 
 };
 

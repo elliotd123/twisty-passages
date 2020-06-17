@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+CharacterData * CharacterData::instance = 0;
+
 CharacterData::CharacterData() : YAMLExtractor(CHARACTER_DATA_FILE) {
     for (const auto & keyname : YAMLData) {
         Character c = Character();
@@ -22,9 +24,11 @@ CharacterData::~CharacterData() {
     
 }
 
-CharacterData & CharacterData::getInstance() {
-    static CharacterData d;
-    return d;
+CharacterData * CharacterData::getInstance() {
+    if (!instance) {
+        instance = new CharacterData();
+    };
+    return instance;
 }
 
 Character CharacterData::getCharacterByName(std::string name) {
@@ -39,4 +43,8 @@ Character CharacterData::getCharacterByName(std::string name) {
 
 std::vector<Character> CharacterData::getCharacters() {
     return characters;
+}
+
+void CharacterData::clean() {
+    delete(instance);
 }

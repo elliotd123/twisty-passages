@@ -9,6 +9,9 @@ class Logger {
         Logger();
         std::string logFile;
         std::ofstream fileStream;
+
+        static Logger * instance;
+
     public:
 
         ~Logger();
@@ -16,8 +19,10 @@ class Logger {
         const static int FILE = 1;
         const static int STDOUT = 2;        
 
-        static Logger & getInstance();
+        static Logger * getInstance();
         void log(const int facility, const std::string message);
+
+        void clean();
 };
 
 #endif
