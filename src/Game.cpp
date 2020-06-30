@@ -29,11 +29,14 @@ Game::Game() {
 	Logger * l = l->getInstance();
 
 	std::vector<Character> characters = ch->getCharacters();
-	l->log(Logger::FILE, "List of available characters:");
+	
+	std::string chs = "\nList of available characters:\n";
 	for (int i = 0; i < characters.size(); i++) {
-		l->log(Logger::FILE, characters[i].keyname);
+		chs += "\t" + characters[i].keyname + "\n";
 	}
 
+	l->log(Logger::FILE, chs);
+	
 	disp = Display();
 }
 
