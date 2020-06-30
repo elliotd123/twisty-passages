@@ -10,7 +10,6 @@ file(GLOB twisty_SRC
 
 file(GLOB twisty-test_SRC
 	"test/catch.hpp"
-	"test/test_config.cpp"
 	"test/test_main.cpp"
 	"test/test_square.cpp"
 	"src/Config.cpp"
