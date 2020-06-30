@@ -2,7 +2,7 @@
 
 #include "Config.h"
 
-TEST_CASE("Test Config files", "[config]") {
+/*TEST_CASE("Test Config files", "[config]") {
     Config * c = c->getInstance();
     SECTION("Test Integers are working") {
         c->data["testInt"] = 1;
@@ -30,4 +30,4 @@ TEST_CASE("Test Config files", "[config]") {
         c->data["testInvalidBool"] = "invalidBool";
         REQUIRE(!c->getBool("testInvalidBool"));
     }
-}
+}*/

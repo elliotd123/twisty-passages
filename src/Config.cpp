@@ -5,9 +5,17 @@
 
 Config * Config::instance = 0;
 
-Config::Config() {
-    std::string file = DEFAULT_CONFIG_FILE;
-    data = YAML::LoadFile(file);
+Config::Config() : YAMLExtractor(DEFAULT_CONFIG_FILE) {
+    LEVEL_SIZE_X = getInt("LEVEL_SIZE_X");
+    LEVEL_SIZE_Y = getInt("LEVEL_SIZE_Y");
+    MAX_LEVELS = getInt("MAX_LEVELS");
+    MIN_ROOMS = getInt("MIN_ROOMS");
+    MAX_ROOMS = getInt("MAX_ROOMS");
+    MIN_ROOM_SIZE = getInt("MIN_ROOM_SIZE");
+    MAX_ROOM_SIZE = getInt("MAX_ROOM_SIZE");
+
+    VISIBILITY_ANGLE_INCREMENT = getDouble("VISIBILITY_ANGLE_INCREMENT");
+    VISIBILITY_LINEAR_INCREMENT = getDouble("VISIBILITY_LINEAR_INCREMENT");
 }
 
 Config * Config::getInstance() {
@@ -15,62 +23,6 @@ Config * Config::getInstance() {
         instance = new Config();
     }
     return instance;
-}
-
-int Config::getInt(std::string key) {
-    int result;
-    if (data[key]) {
-        try {
-            result = data[key].as<int>();
-        } catch (...) {
-            result = -1;
-        }
-    } else {
-        result = -1;
-    }
-    return result;
-}
-
-double Config::getDouble(std::string key) {
-    double result;
-    if (data[key]) {
-        try {
-            result = data[key].as<double>();
-        } catch (...) {
-            result = -1.0;
-        }
-    } else {
-        result = -1.0;
-    }
-    return result;
-}
-
-std::string Config::getString(std::string key) {
-    std::string result;
-    if (data[key]) {
-        try {
-            result = data[key].as<std::string>();
-        } catch (...) {
-            result = "";
-        }
-    } else {
-        result = "";
-    }
-    return result;
-}
-
-bool Config::getBool(std::string key) {
-    bool result;
-    if (data[key]) {
-        try {
-            result = data[key].as<bool>();
-        } catch (...) {
-            result = false;
-        }
-    } else {
-        result = false;
-    }
-    return result;
 }
 
 void Config::clean() {

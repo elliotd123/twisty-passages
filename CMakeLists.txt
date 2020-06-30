@@ -20,6 +20,7 @@ file(GLOB twisty-test_SRC
 	"src/Level.cpp"
 	"src/Square.cpp"
 	"src/Logger.cpp"
+	"src/YAMLExtractor.cpp"
 )
 
 

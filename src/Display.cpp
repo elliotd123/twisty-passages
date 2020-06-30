@@ -124,7 +124,7 @@ void Display::clearRow(int row)
 {
 	Config * c = c->getInstance();
 	char blank = ' ';
-	for (int i = 0; i < c->getInt("LEVEL_SIZE_X"); i++)
+	for (int i = 0; i < c->LEVEL_SIZE_X; i++)
 	{
 		move(row,i);
 		printw("%c",blank);

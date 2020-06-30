@@ -3,12 +3,12 @@
 
 #include <string>
 
-#include "yaml-cpp/yaml.h"
 #include "Logger.h"
+#include "YAMLExtractor.h"
 
 #define DEFAULT_CONFIG_FILE "config.yaml"
 
-class Config {
+class Config : public YAMLExtractor {
 
     private:
         static Config * instance;
@@ -19,11 +19,17 @@ class Config {
 
     public:
         static Config * getInstance();
-        int getInt(std::string key);
-        double getDouble(std::string key);
-        std::string getString(std::string key);
-        bool getBool(std::string key);
-        YAML::Node data;
+        int LEVEL_SIZE_X
+           ,LEVEL_SIZE_Y
+           ,MAX_LEVELS
+           ,MIN_ROOMS
+           ,MAX_ROOMS
+           ,MIN_ROOM_SIZE
+           ,MAX_ROOM_SIZE;
+
+        double VISIBILITY_ANGLE_INCREMENT
+              ,VISIBILITY_LINEAR_INCREMENT;
+        
         void clean();
 };
 
