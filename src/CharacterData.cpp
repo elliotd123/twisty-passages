@@ -5,10 +5,12 @@
 CharacterData * CharacterData::instance = 0;
 
 CharacterData::CharacterData() : YAMLExtractor(CHARACTER_DATA_FILE) {
+    l = l->getInstance();
+    l->log(Logger::FILE, "Loading characters");
     for (const auto & keyname : YAMLData) {
         Character c = Character();
-        currentNode = keyname.second;
         c.keyname = keyname.first.as<std::string>();
+        currentNode = keyname.second;
         c.hp = get<double>("HP");
         c.maxHp = get<double>("HP");
         c.attack = get<double>("AT");

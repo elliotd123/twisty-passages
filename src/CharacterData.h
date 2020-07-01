@@ -15,7 +15,7 @@ class CharacterData : public YAMLExtractor {
     private:
         CharacterData();
 
-        Logger *l = l->getInstance();
+        Logger *l;
         static CharacterData * instance;
 
     public:
