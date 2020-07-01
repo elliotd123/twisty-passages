@@ -21,6 +21,8 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "Logger.h"
+
 class Coord
 {
 	public:
@@ -53,8 +55,12 @@ class Random
 {
 	public:
 		Random();
+		Random(int seed);
 		virtual ~Random();
 		int getInt(int min, int max);
+	
+	private:
+		Logger * l;
 };
 
 #endif /* UTILITIES_H_ */

@@ -53,9 +53,17 @@ Dimension::~Dimension()
 
 Random::Random()
 {
+	l = l->getInstance();
 	time_t seconds;
 	seconds = time(NULL);
+	l->log(Logger::FILE, "Random seed: " + std::to_string(seconds));
 	srand(seconds);
+}
+
+Random::Random(int seed) {
+	l = l->getInstance();
+	l->log(Logger::FILE, "Random seed: " + std::to_string(seed));
+	srand(seed);
 }
 
 Random::~Random()
