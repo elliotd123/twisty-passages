@@ -37,11 +37,12 @@ Game::Game() {
 
 	l->log(Logger::FILE, chs);
 	
-	disp = Display();
+	this->disp = new Display();
 }
 
 Game::~Game() {
 	// TODO Auto-generated destructor stub
+	delete(disp);
 }
 
 int Game::start()
@@ -49,29 +50,28 @@ int Game::start()
 	levels.push_back(Level());
 	character.location = levels[0].rooms[0].center;
 	levels[currentLevel].updateVisible(character);
-	disp.drawLevel(levels[currentLevel]);
-	disp.drawItems();
-	disp.drawMonster(levels[currentLevel],character);
-	disp.drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
-	disp.drawCharStats(character);
-	disp.drawLevel(currentLevel);
-	disp.moveCursor(Coord(0,0));
+	disp->drawLevel(levels[currentLevel]);
+	disp->drawItems();
+	disp->drawMonster(levels[currentLevel],character);
+	disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
+	disp->drawCharStats(character);
+	disp->drawLevelNumber(currentLevel);
 
 	int c;
-	while ((c = disp.getInput()) != 'q')
+	while ((c = getInput()) != SDLK_q)
 	{
 		processInput(c);
 
 		character.update();
 
 		levels[currentLevel].updateVisible(character);
-		disp.drawLevel(levels[currentLevel]);
-		disp.drawItems();
-		disp.drawMonster(levels[currentLevel],character);
-		disp.drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
-		disp.drawCharStats(character);
-		disp.drawLevel(currentLevel);
-		disp.moveCursor(Coord(0,0));
+		disp->clearScreen();
+		disp->drawLevel(levels[currentLevel]);
+		disp->drawItems();
+		disp->drawMonster(levels[currentLevel],character);
+		disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
+		disp->drawCharStats(character);
+		disp->drawLevelNumber(currentLevel);
 	}
 	return 0;
 }
@@ -84,13 +84,15 @@ void Game::processInput(int input)
 	{
 
 		//First we will check if the player pressed a keypad or number, indicating they want to move
-		case KEY_UP: case '8': case KEY_RIGHT: case '6': case KEY_DOWN: case '2':
-		case KEY_LEFT: case '4': case KEY_A1: case '7': case KEY_C1: case '1':
-		case KEY_C3: case '3': case KEY_A3: case '9': case KEY_B2: case '5':
+		case SDLK_UP: case SDLK_RIGHT: case SDLK_DOWN: case SDLK_LEFT: 
+		case SDLK_KP_1: case SDLK_KP_2: case SDLK_KP_3:
+		case SDLK_KP_4: case SDLK_KP_5: case SDLK_KP_6:
+		case SDLK_KP_7: case SDLK_KP_8: case SDLK_KP_9:
 			moveCharacter(input);
 			break;
 
-		case '<': case '>':
+		case SDLK_LESS: case SDLK_GREATER:
+		case SDLK_KP_LESS: case SDLK_KP_GREATER:
 			moveLevel(input);
 			break;
 
@@ -107,35 +109,35 @@ void Game::moveCharacter(unsigned int keypadPressed)
 	Coord moveTo = character.location;
 	switch (keypadPressed)
 		{
-			case KEY_UP: case '8':
+			case SDLK_KP_8: SDLK_UP:
 				moveTo.y--;
 				break;
-			case KEY_RIGHT: case '6':
+			case SDLK_KP_6: SDLK_RIGHT:
 				moveTo.x++;
 				break;
-			case KEY_DOWN: case '2':
+			case SDLK_KP_2: SDLK_DOWN:
 				moveTo.y++;
 				break;
-			case KEY_LEFT: case '4':
+			case SDLK_KP_4: SDLK_LEFT:
 				moveTo.x--;
 				break;
-			case KEY_A1: case '7':
+			case SDLK_KP_7:
 				moveTo.x--;
 				moveTo.y--;
 				break;
-			case KEY_C1: case '1':
+			case SDLK_KP_1:
 				moveTo.x--;
 				moveTo.y++;
 				break;
-			case KEY_C3: case '3':
+			case SDLK_KP_3:
 				moveTo.x++;
 				moveTo.y++;
 				break;
-			case KEY_A3: case '9':
+			case SDLK_KP_9:
 				moveTo.x++;
 				moveTo.y--;
 				break;
-			case KEY_B2: case '5':
+			case SDLK_KP_5:
 				break;
 			default:
 				break;
@@ -158,27 +160,79 @@ void Game::moveLevel(unsigned int keypadPressed)
 {
 	switch (keypadPressed)
 	{
-		case '<':
+		case SDLK_LESS: case SDLK_KP_LESS:
 			if (currentLevel > 0 && (levels[currentLevel].squares[character.location.x][character.location.y].getType() == STAIRS_UP))
 			{
 				currentLevel--;
 				character.location.x = levels[currentLevel].rooms[levels[currentLevel].rooms.size()-1].center.x;
 				character.location.y = levels[currentLevel].rooms[levels[currentLevel].rooms.size()-1].center.y;
-				disp.clearScreen();
+				disp->clearScreen();
 			}
 			break;
-		case '>':
-			if (currentLevel < ((int) c->MAX_LEVELS - 1) && (levels[currentLevel].squares[character.location.x][character.location.y].getType() == STAIRS_DOWN))
+		case SDLK_GREATER: case SDLK_KP_GREATER:
+			if (currentLevel < ((int) c->getInt("MAX_LEVELS") - 1) && (levels[currentLevel].squares[character.location.x][character.location.y].getType() == STAIRS_DOWN))
 			{
 				if ((currentLevel+1) > (levels.size()-1))
 					levels.push_back(Level());
 				currentLevel++;
 				character.location.x = levels[currentLevel].rooms[0].center.x;
 				character.location.y = levels[currentLevel].rooms[0].center.y;
-				disp.clearScreen();
+				disp->clearScreen();
 			}
 			break;
 		default:
 			break;
 	}
+}
+
+//Spinwait for input from user (Sleeping occasionally) and returning the SDL keycode when they give input.
+int Game::getInput()
+{
+	bool shift = false;
+	while (true) {
+		SDL_Event event;
+		while( SDL_PollEvent( &event ) ){
+		/* We are only worried about SDL_KEYDOWN and SDL_KEYUP events */
+		switch( event.type ) {
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+					case SDLK_LSHIFT:
+					case SDLK_RSHIFT:
+					    shift = true;
+						continue;
+						break;
+					case SDLK_PERIOD:
+						if (shift) {
+							return SDLK_GREATER;
+						}
+						break;
+					case SDLK_COMMA:
+						if (shift) {
+							return SDLK_LESS;
+						}
+						break;
+					default:
+						break;
+				}
+				return event.key.keysym.sym;
+				break;
+
+			case SDL_KEYUP:
+				switch (event.key.keysym.sym) {
+					case SDLK_LSHIFT:
+					case SDLK_RSHIFT:
+						shift = false;
+						break;
+					default:
+						break;
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+		SDL_Delay(20);
+	}
+	return 0;
 }

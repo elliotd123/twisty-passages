@@ -18,12 +18,15 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 #include <iostream>
-#include <ncurses.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <vector>
 
 #include "Level.h"
+#include "Logger.h"
 #include "Monster.h"
 #include "Character.h"
+#include "Config.h"
 
 class Display
 {
@@ -36,17 +39,20 @@ class Display
         void drawMonster(Level& level, Monster& monster);
         void drawMonsters(Level& level, std::vector<Monster>& monsters);
         void drawCharStats(Character& character);
-        void drawLevel(int level);
+        void drawLevelNumber(int level);
 
-        void output(char c, int x, int y);
+        void output(char c, int x, int y, bool immediate=true);
 		void output(int i, int x, int y);
-		void output(std::string& s, int x, int y);
+		void output(std::string& s, int x, int y, bool immediate=true);
 		void clearRow(int row);
 		void clearScreen();
 		void moveCursor(Coord location);
-        int getInput();
     protected:
     private:
+        SDL_Window * window;
+        Logger * l;
+        Config * c;
+        TTF_Font * font;
 };
 
 #endif // DISPLAY_H

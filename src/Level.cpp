@@ -26,8 +26,8 @@
 Level::Level()
 {
 	c = c->getInstance();
-    levelSizeX = c->LEVEL_SIZE_X;
-    levelSizeY = c->LEVEL_SIZE_Y;
+    levelSizeX = c->getInt("LEVEL_SIZE_X");
+    levelSizeY = c->getInt("LEVEL_SIZE_Y");
 
 	//Initialize all squares with default constructor (As walls)
 	for (int i = 0; i < levelSizeX; i++) {
@@ -39,7 +39,7 @@ Level::Level()
 
     static Random rand = Random();
 
-    int rand_int = rand.getInt(c->MIN_ROOMS,c->MAX_ROOMS);
+    int rand_int = rand.getInt(c->getInt("MIN_ROOMS"),c->getInt("MAX_ROOMS"));
     for (int i = 0; i < rand_int; i++)
     {
     	addRoom();
@@ -65,8 +65,8 @@ void Level::addRoom()
 		invalidRoom = false;
 
 		//Create random room size
-		int min_room_size = c->MIN_ROOM_SIZE;
-		int max_room_size = c->MAX_ROOM_SIZE;
+		int min_room_size = c->getInt("MIN_ROOM_SIZE");
+		int max_room_size = c->getInt("MAX_ROOM_SIZE");
 		sizeX = (rand() % (max_room_size - min_room_size) + min_room_size);
 		sizeY = (rand() % (max_room_size - min_room_size) + min_room_size);
 		size = Dimension(sizeX,sizeY);
@@ -99,8 +99,8 @@ void Level::addRoom()
 		{
 			for (int j = location.y-1; j < (location.y+size.y+1); j++)
 			{
-				if (i > c->LEVEL_SIZE_X - 1
-				    || j > c->LEVEL_SIZE_Y - 1) {
+				if (i > c->getInt("LEVEL_SIZE_X") - 1
+				    || j > c->getInt("LEVEL_SIZE_Y") - 1) {
 						invalidRoom = true;
 					} else {
 						if (squares[i][j].getType() == FLOOR) invalidRoom = true;
@@ -255,9 +255,9 @@ void Level::updateVisible(const Character& player)
 		}
 	}
 
-	for (double ang = 0.0; ang < 360.0; ang += c->VISIBILITY_ANGLE_INCREMENT) {
+	for (double ang = 0.0; ang < 360.0; ang += c->getDouble("VISIBILITY_ANGLE_INCREMENT")) {
 		bool hitWall = false;
-		for (double i = 0.0; i <= player.visibility; i+= c->VISIBILITY_LINEAR_INCREMENT) {
+		for (double i = 0.0; i <= player.visibility; i+= c->getDouble("VISIBILITY_LINEAR_INCREMENT")) {
 			if (hitWall) {
 				break;
 			}

@@ -1,9 +1,13 @@
 Twisty Passages - A simple rogue-like dungeon crawler
 Copyright (C) 2020  Elliot Dronebarger
 
-This program is currently designed to work only with the ncurses library.
+Dependencies:
+- SDL2
+- SDL2_ttf
+- yaml-cpp (submodule)
+
 To compile, you will need:
-- The ncurses library and headers (ncurses-dev)
+- SDL2 headers and library
 - The yaml-cpp submodule
 
 Building:

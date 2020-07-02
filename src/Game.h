@@ -19,7 +19,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <ncurses.h>
+#include <SDL2/SDL.h>
 #include <vector>
 
 #include "Config.h"
@@ -38,13 +38,14 @@ public:
 
 	vector<Level> levels;
 	Character character;
-	Display disp;
+	Display * disp;
 
 private:
 	void processInput(int input);
 	void moveCharacter(unsigned int keypadPressed);
 	void moveLevel(unsigned int keypadPressed);
 	Config * c;
+	int getInput();
 };
 
 #endif /* GAME_H_ */
