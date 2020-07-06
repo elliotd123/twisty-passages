@@ -44,6 +44,7 @@ private:
 	void processInput(int input);
 	void moveCharacter(unsigned int keypadPressed);
 	void moveLevel(unsigned int keypadPressed);
+	void redrawGameWindow();
 	Config * c;
 	int getInput();
 };

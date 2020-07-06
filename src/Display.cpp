@@ -67,12 +67,11 @@ void Display::drawLevel(Level& level)
             {
 				
 				char c = level.squares[j][i].getSymbol();
-				output(c,j,i,false);
-				//printw("%c",c);
+				output(c,j,i);
             }
         }
     }
-	SDL_UpdateWindowSurface(window);
+	//SDL_UpdateWindowSurface(window);
     //refresh();
 }
 
@@ -186,12 +185,9 @@ void Display::clearScreen()
 	rect->x = 0;
 	rect->y = 0;
 	SDL_FillRect(surface,rect,0);
-	SDL_UpdateWindowSurface(window);
 	delete(rect);
 }
 
-//Move the cursor to the location
-void Display::moveCursor(Coord location)
-{
-	//move(location.y,location.x);
+void Display::redraw() {
+	SDL_UpdateWindowSurface(window);
 }

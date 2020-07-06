@@ -41,12 +41,12 @@ class Display
         void drawCharStats(Character& character);
         void drawLevelNumber(int level);
 
-        void output(char c, int x, int y, bool immediate=true);
+        void output(char c, int x, int y, bool immediate=false);
 		void output(int i, int x, int y);
-		void output(std::string& s, int x, int y, bool immediate=true);
+		void output(std::string& s, int x, int y, bool immediate=false);
 		void clearRow(int row);
 		void clearScreen();
-		void moveCursor(Coord location);
+        void redraw();
     protected:
     private:
         SDL_Window * window;

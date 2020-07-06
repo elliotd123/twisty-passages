@@ -56,24 +56,27 @@ int Game::start()
 	disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
 	disp->drawCharStats(character);
 	disp->drawLevelNumber(currentLevel);
+	disp->redraw();
 
 	int c;
 	while ((c = getInput()) != SDLK_q)
 	{
 		processInput(c);
-
 		character.update();
-
-		levels[currentLevel].updateVisible(character);
-		disp->clearScreen();
-		disp->drawLevel(levels[currentLevel]);
-		disp->drawItems();
-		disp->drawMonster(levels[currentLevel],character);
-		disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
-		disp->drawCharStats(character);
-		disp->drawLevelNumber(currentLevel);
+		redrawGameWindow();
 	}
 	return 0;
+}
+void Game::redrawGameWindow() {
+	levels[currentLevel].updateVisible(character);
+	disp->clearScreen();
+	disp->drawLevel(levels[currentLevel]);
+	disp->drawItems();
+	disp->drawMonster(levels[currentLevel],character);
+	disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
+	disp->drawCharStats(character);
+	disp->drawLevelNumber(currentLevel);
+	disp->redraw();
 }
 
 //Process an input command
@@ -191,6 +194,7 @@ int Game::getInput()
 	bool shift = false;
 	while (true) {
 		SDL_Event event;
+		
 		while( SDL_PollEvent( &event ) ){
 		/* We are only worried about SDL_KEYDOWN and SDL_KEYUP events */
 		switch( event.type ) {
@@ -227,7 +231,15 @@ int Game::getInput()
 						break;
 				}
 				break;
-
+			case SDL_WINDOWEVENT:
+				switch (event.window.event) {
+					case SDL_WINDOWEVENT_RESIZED:
+						redrawGameWindow();
+						break;
+					default:
+						break;
+				}
+				break;
 			default:
 				break;
 			}
