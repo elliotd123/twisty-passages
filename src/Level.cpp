@@ -18,7 +18,6 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
-#include <ncurses.h>
 
 #include "Config.h"
 #include "Level.h"
