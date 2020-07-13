@@ -94,7 +94,7 @@ void Display::drawLevelNumber(int level) {
 	//move(0,0);
 	//printw("Level: %i",level);
 	//refresh();
-	std::string levelString = "Level: " + std::to_string(level);
+	std::string levelString = "Level: " + std::to_string(level + 1);
 	output(levelString,0,0);
 }
 

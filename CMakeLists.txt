@@ -10,9 +10,13 @@ file(GLOB twisty_SRC
 
 file(GLOB twisty-test_SRC
 	"test/catch.hpp"
+	"test/test_character_data.cpp"
 	"test/test_main.cpp"
 	"test/test_square.cpp"
+	"src/Character.cpp"
+	"src/CharacterData.cpp"
 	"src/Config.cpp"
+	"src/Monster.cpp"
 	"src/Utilities.cpp"
 	"src/Room.cpp"
 	"src/Sqare.cpp"

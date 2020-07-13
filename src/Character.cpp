@@ -1,8 +1,7 @@
 #include "Character.h"
 
 Character::Character() {
-    hp = 88.0;
-    maxHp = 100.0;
+    classname = "None";
 }
 
 Character::~Character() {
