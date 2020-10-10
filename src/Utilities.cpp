@@ -73,6 +73,6 @@ Random::~Random()
 
 int Random::getInt(int min, int max)
 {
-	int rand_int = (rand()%(max-min) + min);
+	int rand_int = (rand()%(max+1-min) + min);
 	return rand_int;
 }
