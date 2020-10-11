@@ -18,6 +18,10 @@ TEST_CASE("Test rng", "[random]") {
                 higherDone = true;
             }
         }
+        bool zero = (lowerDone && higherDone);
+
+        lowerDone = false;
+        higherDone = false;
 
         lower = 1;
         higher = 2;
@@ -30,8 +34,9 @@ TEST_CASE("Test rng", "[random]") {
                 higherDone = true;
             }
         }
+        bool one = (lowerDone && higherDone);
 
-        REQUIRE((lowerDone && higherDone));
+        REQUIRE((zero && one));
     }
 
     SECTION("Random Number Generator should not generate numbers out of bounds") {
