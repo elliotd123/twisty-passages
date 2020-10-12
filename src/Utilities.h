@@ -58,6 +58,7 @@ class Random
 		Random(int seed);
 		virtual ~Random();
 		int getInt(int min, int max);
+		int dice_roll(int num_dice, int dice_size);
 	
 	private:
 		Logger * l;

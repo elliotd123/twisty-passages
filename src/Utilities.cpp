@@ -76,3 +76,14 @@ int Random::getInt(int min, int max)
 	int rand_int = (rand()%(max+1-min) + min);
 	return rand_int;
 }
+
+int Random::dice_roll(int num_dice, int dice_size) {
+	int total = 0;
+	if (num_dice < 1 || dice_size < 2) {
+		return 0;
+	}
+	for (int i = 0; i < num_dice; i++) {
+		total += getInt(1,dice_size);
+	}
+	return total;
+}
