@@ -3,6 +3,12 @@ set(CMAKE_CXX_STANDARD 11)
 project(twisty-passages VERSION 0.1.0)
 project(twisty-test VERSION 0.1.0)
 
+set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "disable yaml tests")
+set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "disable yaml tools")
+set(YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "disable yaml contrib")
+
+add_subdirectory(ext/yaml-cpp/)
+
 file(GLOB twisty_SRC
 	"src/*.h"
 	"src/*.cpp"
@@ -18,6 +24,7 @@ file(GLOB twisty-test_SRC
 	"src/CharacterData.cpp"
 	"src/Config.cpp"
 	"src/Monster.cpp"
+	"src/MonsterData.cpp"
 	"src/Utilities.cpp"
 	"src/Room.cpp"
 	"src/Sqare.cpp"
@@ -41,9 +48,9 @@ target_include_directories(twisty-test PUBLIC "${CMAKE_SOURCE_DIR}/ext/yaml-cpp/
 
 target_link_libraries(twisty-passages SDL2)
 target_link_libraries(twisty-passages SDL2_ttf)
-target_link_libraries(twisty-passages "${CMAKE_SOURCE_DIR}/ext/yaml-cpp/build/libyaml-cpp.a")
+target_link_libraries(twisty-passages "${PROJECT_BINARY_DIR}/ext/yaml-cpp/libyaml-cpp.a")
 
-target_link_libraries(twisty-test "${CMAKE_SOURCE_DIR}/ext/yaml-cpp/build/libyaml-cpp.a")
+target_link_libraries(twisty-test "${PROJECT_BINARY_DIR}/ext/yaml-cpp/libyaml-cpp.a")
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
