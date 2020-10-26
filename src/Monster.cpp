@@ -19,6 +19,7 @@
 #include "Level.h"
 #include "Monster.h"
 #include "Character.h"
+#include "Logger.h"
 
 Monster::Monster()
 {
@@ -29,6 +30,8 @@ Monster::Monster()
     visibility = 5.0;
     speed = 1.0;
     movement = 0.0;
+
+    l = l->getInstance();
 }
 
 Monster::~Monster()
@@ -47,6 +50,7 @@ void Monster::takeTurn(Level & level, Character & character) {
     while (movement >= 1.0) {
         if (level.isAdjacent(*this,character)) {
             Fight::attack(*this,character);
+            l->log(Logger::GAME,"The " + this->classname + " hits you!",true);
         } else {
             if (level.isLOS(character.location,*this)) {
                 //Move toward the player

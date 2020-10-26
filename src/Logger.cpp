@@ -24,7 +24,7 @@ Logger * Logger::getInstance() {
     return instance;
 }
 
-void Logger::log(const int facility, const std::string message) {
+void Logger::log(const int facility, const std::string message, bool immediate) {
 
     std::chrono::system_clock::time_point time_now = std::chrono::system_clock::now();
 
@@ -43,6 +43,14 @@ void Logger::log(const int facility, const std::string message) {
     }
     if (facility & STDOUT) {
         std::cout << finalMessage << "\n";
+    }
+    if (facility & GAME) {
+        if (immediate) {
+            messageQueueImmediate.push(message);
+        } else {
+            messageQueue.push(message);
+        }
+        
     }
 }
 

@@ -23,6 +23,7 @@
 #include "Utilities.h"
 
 class Level;
+class Logger;
 class Character;
 
 class Monster
@@ -48,6 +49,7 @@ class Monster
 
     protected:
     private:
+        Logger * l;
 };
 
 #endif // MONSTER_H

@@ -27,7 +27,7 @@ Game::Game() {
 	//TODO: We'll have to restructure this at some point to allow other character types
 	character = ch->getCharacterByName("swordsman");
 
-	Logger * l = l->getInstance();
+	l = l->getInstance();
 
 	std::vector<Character> characters = ch->getCharacters();
 	
@@ -63,9 +63,32 @@ int Game::start()
 		}
 		character.update();
 		if (character.hp <= 0.0) {
-			//TODO: Add a message and true end of game
+			l->log(Logger::GAME,"You die...");
+		}
+
+		while (!l->messageQueue.empty()) {
+			std::string message = l->messageQueue.front();
+			l->messageQueue.pop();
+			disp->output(message,10,0,true);
+			
+			bool enter = false;
+			while (!enter) {
+				int c = getInput();
+				switch (c) {
+					case SDLK_KP_ENTER:
+					case SDLK_RETURN:
+					case SDLK_RETURN2:
+					case SDLK_SPACE:
+						enter = true;
+						break;
+				}
+			}
+		}
+
+		if (character.hp <= 0.0) {
 			break;
 		}
+		
 		redrawGameWindow();
 	}
 	return 0;
@@ -79,6 +102,11 @@ void Game::redrawGameWindow() {
 	disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters,character);
 	disp->drawCharStats(character);
 	disp->drawLevelNumber(currentLevel);
+	if (!l->messageQueueImmediate.empty()) {
+			std::string message = l->messageQueueImmediate.front();
+			l->messageQueueImmediate.pop();
+			disp->output(message,10,1,true);
+	}
 	disp->redraw();
 }
 

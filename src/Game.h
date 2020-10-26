@@ -48,6 +48,7 @@ private:
 	Config * c;
 	int getInput();
 	bool input_shift = false;
+	Logger * l;
 };
 
 #endif /* GAME_H_ */
