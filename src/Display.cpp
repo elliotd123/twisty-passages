@@ -65,8 +65,14 @@ void Display::drawLevel(Level& level)
         {
             if (level.squares[j][i].seen)
             {
-				
 				char c = level.squares[j][i].getSymbol();
+
+				//Draw a monster if it's there
+				Coord coord = Coord(j,i);
+				Monster * m = level.monsterAt(coord);
+				if (m && level.squares[j][i].isVisible) {
+					c = m->symbol;
+				}
 				output(c,j,i);
             }
         }
@@ -99,14 +105,10 @@ void Display::drawLevelNumber(int level) {
 }
 
 //Draw all the monsters on the level
-void Display::drawMonsters(Level& level, std::vector<Monster>& monsters)
+void Display::drawMonsters(Level& level, std::vector<Monster>& monsters, Character& c)
 {
-	for (int i = 0; i < monsters.size(); i++)
-	{
-		//move(monsters[i].location.y,monsters[i].location.x);
-		//printw("%c",monsters[i].symbol);
-	}
-	//refresh();
+	//Deprecated
+	//TODO: Remove references
 }
 
 //Draw a single monster on the level

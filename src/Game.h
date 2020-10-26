@@ -47,6 +47,7 @@ private:
 	void redrawGameWindow();
 	Config * c;
 	int getInput();
+	bool input_shift = false;
 };
 
 #endif /* GAME_H_ */

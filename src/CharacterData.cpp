@@ -15,9 +15,11 @@ CharacterData::CharacterData() : YAMLExtractor(CHARACTER_DATA_FILE) {
         c.maxHp = get<double>("HP");
         c.attack = get<double>("AT");
         c.defense = get<double>("DEF");
+        c.speed = getDouble("SPEED",1.0);
         c.description = getString("Description");
         c.classname = getString("ClassName");
         c.symbol = getString("Symbol")[0];
+        c.visibility = getDouble("VIS",5.0);
         characters.push_back(c);
     }
 }

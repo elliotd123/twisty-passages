@@ -3,6 +3,8 @@ swordsman:
   HP: 10.0
   AT: 10.0
   DEF: 10.0
+  SPEED: 1.0
+  VIS: 5.0
   Description: "Main character. They are pretty good with a sword"
   Symbol: "@"
 
@@ -11,5 +13,7 @@ tourist:
   HP: 7.0
   AT: 3.0
   DEF: 3.0
+  SPEED: 1.0
+  VIS: 5.0
   Description: "Tourist. Very weak, but has some secrets up their sleeve..."
   Symbol: "@"

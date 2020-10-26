@@ -37,7 +37,7 @@ class Display
         void drawLevel(Level& level);
         void drawItems();
         void drawMonster(Level& level, Monster& monster);
-        void drawMonsters(Level& level, std::vector<Monster>& monsters);
+        void drawMonsters(Level& level, std::vector<Monster>& monsters, Character& c);
         void drawCharStats(Character& character);
         void drawLevelNumber(int level);
 

@@ -23,6 +23,7 @@ file(GLOB twisty-test_SRC
 	"src/Character.cpp"
 	"src/CharacterData.cpp"
 	"src/Config.cpp"
+	"src/Fight.cpp"
 	"src/Monster.cpp"
 	"src/MonsterData.cpp"
 	"src/Utilities.cpp"

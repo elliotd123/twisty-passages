@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "catch.hpp"
 #include "Utilities.h"
 
@@ -59,5 +61,36 @@ TEST_CASE("Test rng", "[random]") {
         }
         
         REQUIRE(inBounds);
+    }
+
+    SECTION("Distance calculation check 1") {
+        Coord a = Coord(0,0);
+        Coord b = Coord(0,0);
+        double dist = distance(a,b);
+        REQUIRE(dist == 0.0);
+    }
+    SECTION("Distance calculation check 2") {
+        Coord a = Coord(0,0);
+        Coord b = Coord(0,1);
+        double dist = distance(a,b);
+        REQUIRE(dist == 1.0);
+    }
+    SECTION("Distance calculation check 3") {
+        Coord a = Coord(0,0);
+        Coord b = Coord(1,0);
+        double dist = distance(a,b);
+        REQUIRE(dist == 1.0);
+    }
+    SECTION("Distance calculation check 4") {
+        Coord a = Coord(0,0);
+        Coord b = Coord(1,1);
+        double dist = distance(a,b);
+        REQUIRE(dist == sqrt(2.0));
+    }
+    SECTION("Distance calculation check 5") {
+        Coord a = Coord(0,0);
+        Coord b = Coord(2,2);
+        double dist = distance(a,b);
+        REQUIRE(dist == sqrt(8.0));
     }
 }

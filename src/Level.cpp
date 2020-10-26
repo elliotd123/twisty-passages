@@ -25,6 +25,7 @@
 Level::Level()
 {
 	c = c->getInstance();
+	mons_data = mons_data->getInstance();
     levelSizeX = c->getInt("LEVEL_SIZE_X");
     levelSizeY = c->getInt("LEVEL_SIZE_Y");
 
@@ -209,6 +210,17 @@ void Level::addMonster(Monster& monster)
 			validSpot=true;
 		}
 	}
+	monsters.push_back(monster);
+}
+
+void Level::addMonsters(int level) {
+	int minMonsters = c->get<int>("MIN_MONSTERS_SPAWN");
+	int maxMonsters = c->get<int>("MAX_MONSTERS_SPAWN");
+	Random r = Random();
+	for (int i = 0; i < r.getInt(minMonsters,maxMonsters); i++) {
+		Monster m = mons_data->getRandomMonster(level);
+		addMonster(m);
+	}
 }
 
 void Level::addStairs()
@@ -217,16 +229,15 @@ void Level::addStairs()
 	squares[rooms[rooms.size()-1].center.x][rooms[rooms.size()-1].center.y].setType(STAIRS_DOWN);
 }
 
-bool Level::isMonster(const Coord& coordinate)
-{
+Monster * Level::monsterAt(const Coord& coordinate) {
 	for (unsigned int i = 0; i < monsters.size(); i++)
 	{
 		if (coordinate.x == monsters[i].location.x && coordinate.y == monsters[i].location.y)
 		{
-			return true;
+			return &monsters[i];
 		}
 	}
-	return false;
+	return NULL;
 }
 
 
@@ -241,6 +252,33 @@ bool Level::isAllWalls(const Coord& location)
 		}
 	}
 	return true;
+}
+
+bool Level::isLOS(const Coord& target, const Monster& source) {
+	Coord sourceLoc = source.location;
+	if (distance(sourceLoc,target) > source.visibility) {
+		return false;
+	}
+	for (double ang = 0.0; ang < 360.0; ang += c->getDouble("VISIBILITY_ANGLE_INCREMENT")) {
+		bool hitWall = false;
+		for (double i = 0.0; i <= source.visibility; i+= c->getDouble("VISIBILITY_LINEAR_INCREMENT")) {
+			if (hitWall) {
+				break;
+			}
+			double ang_rad = ang * (3.14 / 180.0);
+			double x_doub = cos(ang_rad) * i;
+			int x = (int) x_doub;
+			double y_doub = sin(ang_rad) * i;
+			int y = (int) y_doub;
+			x += sourceLoc.x;
+			y += sourceLoc.y;
+
+			if (x == target.x && y == target.y) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void Level::updateVisible(const Character& player)
@@ -282,4 +320,15 @@ void Level::updateVisible(const Character& player)
 			}
 		}
 	}
+}
+
+bool Level::isAdjacent(const Monster & mons1, const Monster &mons2) {
+	Coord loc1 = mons1.location;
+	Coord loc2 = mons2.location;
+
+	if (abs(loc1.x - loc2.x) <= 1
+	&&  abs(loc1.y - loc2.y) <= 1) {
+		return true;
+	}
+	return false;
 }

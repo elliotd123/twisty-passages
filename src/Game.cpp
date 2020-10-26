@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "CharacterData.h"
+#include "Fight.h"
 #include "Game.h"
 #include "Logger.h"
 
@@ -48,21 +49,23 @@ Game::~Game() {
 int Game::start()
 {
 	levels.push_back(Level());
+	levels[0].addMonsters(0);
 	character.location = levels[0].rooms[0].center;
-	levels[currentLevel].updateVisible(character);
-	disp->drawLevel(levels[currentLevel]);
-	disp->drawItems();
-	disp->drawMonster(levels[currentLevel],character);
-	disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
-	disp->drawCharStats(character);
-	disp->drawLevelNumber(currentLevel);
-	disp->redraw();
+	redrawGameWindow();
 
 	int c;
+	//Main Loop
 	while ((c = getInput()) != SDLK_q)
 	{
 		processInput(c);
+		for (int i = 0; i < levels[currentLevel].monsters.size(); i++) {
+			levels[currentLevel].monsters[i].takeTurn(levels[currentLevel],character);
+		}
 		character.update();
+		if (character.hp <= 0.0) {
+			//TODO: Add a message and true end of game
+			break;
+		}
 		redrawGameWindow();
 	}
 	return 0;
@@ -73,7 +76,7 @@ void Game::redrawGameWindow() {
 	disp->drawLevel(levels[currentLevel]);
 	disp->drawItems();
 	disp->drawMonster(levels[currentLevel],character);
-	disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters);
+	disp->drawMonsters(levels[currentLevel],levels[currentLevel].monsters,character);
 	disp->drawCharStats(character);
 	disp->drawLevelNumber(currentLevel);
 	disp->redraw();
@@ -147,9 +150,18 @@ void Game::moveCharacter(unsigned int keypadPressed)
 		}
 
 	//Check if the space has a monster on it. If so, attack it.
-	if (levels[currentLevel].isMonster(moveTo))
+	Monster * m = levels[currentLevel].monsterAt(moveTo);
+	if (m)
 	{
-		//TODO: Character hit a monster. Do an attack.
+		Fight::attack(character,*m);
+
+		if (m->hp <= 0.0) {
+			for (int i = 0; i < levels[currentLevel].monsters.size(); i++) {
+				if (m == &levels[currentLevel].monsters[i]) {
+					levels[currentLevel].monsters.erase(levels[currentLevel].monsters.begin() + i);
+				}
+			}
+		}
 	}
 
 	//Check to see if this is a space that can be walked on. If so, move the character to it
@@ -175,8 +187,10 @@ void Game::moveLevel(unsigned int keypadPressed)
 		case SDLK_GREATER: case SDLK_KP_GREATER:
 			if (currentLevel < ((int) c->getInt("MAX_LEVELS") - 1) && (levels[currentLevel].squares[character.location.x][character.location.y].getType() == STAIRS_DOWN))
 			{
-				if ((currentLevel+1) > (levels.size()-1))
+				if ((currentLevel+1) > (levels.size()-1)) {
 					levels.push_back(Level());
+					levels[currentLevel+1].addMonsters(currentLevel+1);
+				}
 				currentLevel++;
 				character.location.x = levels[currentLevel].rooms[0].center.x;
 				character.location.y = levels[currentLevel].rooms[0].center.y;
@@ -191,7 +205,6 @@ void Game::moveLevel(unsigned int keypadPressed)
 //Spinwait for input from user (Sleeping occasionally) and returning the SDL keycode when they give input.
 int Game::getInput()
 {
-	bool shift = false;
 	while (true) {
 		SDL_Event event;
 		
@@ -202,16 +215,16 @@ int Game::getInput()
 				switch (event.key.keysym.sym) {
 					case SDLK_LSHIFT:
 					case SDLK_RSHIFT:
-					    shift = true;
+					    input_shift = true;
 						continue;
 						break;
 					case SDLK_PERIOD:
-						if (shift) {
+						if (input_shift) {
 							return SDLK_GREATER;
 						}
 						break;
 					case SDLK_COMMA:
-						if (shift) {
+						if (input_shift) {
 							return SDLK_LESS;
 						}
 						break;
@@ -225,7 +238,7 @@ int Game::getInput()
 				switch (event.key.keysym.sym) {
 					case SDLK_LSHIFT:
 					case SDLK_RSHIFT:
-						shift = false;
+						input_shift = false;
 						break;
 					default:
 						break;

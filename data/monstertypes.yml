@@ -1,0 +1,23 @@
+imp:
+  ClassName: Imp
+  HP: 10.0
+  AT: 3.0
+  DEF: 1.0
+  SPEED: 0.5
+  VIS: 10.0
+  Description: A small creature. Frankly, nobody knows how they've survived in the dungeon this long.
+  Symbol: "i"
+  MinLevel: 0
+  MaxLevel: 49
+
+mouse:
+  ClassName: Mouse
+  HP: 10.0
+  AT: 1.0
+  DEF: 1.0
+  SPEED: 1.5
+  VIS: 10.0
+  Description: A mouse. Quick, but also not very deadly.
+  Symbol: "m"
+  MinLevel: 0
+  MaxLevel: 49

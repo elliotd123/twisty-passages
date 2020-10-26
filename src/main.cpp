@@ -24,8 +24,13 @@
 #include "Logger.h"
 #include "Monster.h"
 #include "Game.h"
+#include "Utilities.h"
 
 using namespace std;
+
+//Initialize Fight's RNG
+#include "Fight.h"
+Random Fight::r = Random();
 
 int main()
 {

@@ -21,6 +21,7 @@
 #include "Character.h"
 #include "Config.h"
 #include "Monster.h"
+#include "MonsterData.h"
 #include "Room.h"
 #include "Square.h"
 #include "Utilities.h"
@@ -38,18 +39,22 @@ class Level
         void addRoom();
         void makeHalls();
         void addMonster(Monster& monster);
+        void addMonsters(int level);
         void addStairs();
-        bool isMonster(const Coord& coordinate);
+        Monster * monsterAt(const Coord& coordinate);
+        bool isLOS(const Coord& target, const Monster& source);
+        bool isAdjacent(const Monster & mons1, const Monster &mons2);
         void updateVisible(const Character& player);
 
         std::vector<std::vector<Square>> squares;
         int levelSizeX, levelSizeY;
         std::vector<Room> rooms;
         std::vector<Monster> monsters;
+        
     protected:
     private:
         bool isAllWalls(const Coord& location);
-        bool isLOS(const Coord& target, Coord& playerLoc);
+        MonsterData * mons_data;
         Config * c;
 };
 

@@ -20,6 +20,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 
 #include "Logger.h"
 
@@ -36,6 +37,8 @@ class Coord
 	protected:
 	private:
 };
+
+double distance(const Coord& coord1, const Coord& coord2);
 
 class Dimension
 {

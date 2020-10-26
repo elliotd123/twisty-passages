@@ -32,6 +32,10 @@ Coord::~Coord()
 
 }
 
+double distance(const Coord& coord1, const Coord& coord2) {
+	double result = sqrt((pow(coord2.x-coord1.x,2)) + (pow(coord2.y-coord1.y,2)));
+	return result;
+}
 
 
 Dimension::Dimension()
@@ -73,6 +77,9 @@ Random::~Random()
 
 int Random::getInt(int min, int max)
 {
+	if (min == max) {
+		return min;
+	}
 	int rand_int = (rand()%(max+1-min) + min);
 	return rand_int;
 }

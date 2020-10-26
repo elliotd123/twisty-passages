@@ -22,6 +22,9 @@
 
 #include "Utilities.h"
 
+class Level;
+class Character;
+
 class Monster
 {
     public:
@@ -35,9 +38,13 @@ class Monster
         double hp,maxHp;
         double attack,defense;
         double visibility;
+        double speed;
+        int minLevel,maxLevel;
         std::string description;
         std::string classname;
         std::string keyname;
+        void takeTurn(Level & level, Character & character);
+        double movement;
 
     protected:
     private:

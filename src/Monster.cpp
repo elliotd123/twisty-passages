@@ -15,25 +15,58 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "Fight.h"
+#include "Level.h"
 #include "Monster.h"
+#include "Character.h"
 
 Monster::Monster()
 {
-    //ctor
 	symbol = '@';
 	location = Coord(0,0);
     hp = 10.0;
     maxHp = 10.0;
     visibility = 5.0;
+    speed = 1.0;
+    movement = 0.0;
 }
 
 Monster::~Monster()
 {
-    //dtor
 }
 
 void Monster::update() {
     if (hp < maxHp) {
-        hp += (maxHp / 1000.0);
+        hp += (maxHp / 100.0);
     }
+}
+
+void Monster::takeTurn(Level & level, Character & character) {
+    double relative_speed = speed / character.speed;
+    movement += relative_speed;
+    while (movement >= 1.0) {
+        if (level.isAdjacent(*this,character)) {
+            Fight::attack(*this,character);
+        } else {
+            if (level.isLOS(character.location,*this)) {
+                //Move toward the player
+                Coord moveTo = this->location;
+                if (location.x < character.location.x) {
+                    moveTo.x++;
+                } else if (location.x > character.location.x) {
+                    moveTo.x--;
+                }
+                if (location.y < character.location.y) {
+                    moveTo.y++;
+                } else if (location.y > character.location.y) {
+                    moveTo.y--;
+                }
+                if (level.squares[moveTo.x][moveTo.y].isWalkable()) {
+                    location = moveTo;
+                }
+            }
+        }
+        movement -= 1.0;
+    }
+    
 }
