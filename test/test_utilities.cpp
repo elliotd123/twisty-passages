@@ -1,12 +1,12 @@
 #include <cmath>
 
-#include "catch.hpp"
+#include "doctest.h"
 #include "Utilities.h"
 
-TEST_CASE("Test rng", "[random]") {
+TEST_CASE("Test rng") {
     Random r = Random(0);
 
-    SECTION("Random Number Generator should reach all numbers in bounds") {
+    SUBCASE("Random Number Generator should reach all numbers in bounds") {
         int lower = 0;
         int higher = 1;
         bool lowerDone = false;
@@ -41,7 +41,7 @@ TEST_CASE("Test rng", "[random]") {
         REQUIRE((zero && one));
     }
 
-    SECTION("Random Number Generator should not generate numbers out of bounds") {
+    SUBCASE("Random Number Generator should not generate numbers out of bounds") {
         int lower = 0;
         int higher = 1;
         bool inBounds = true;
@@ -63,31 +63,31 @@ TEST_CASE("Test rng", "[random]") {
         REQUIRE(inBounds);
     }
 
-    SECTION("Distance calculation check 1") {
+    SUBCASE("Distance calculation check 1") {
         Coord a = Coord(0,0);
         Coord b = Coord(0,0);
         double dist = distance(a,b);
         REQUIRE(dist == 0.0);
     }
-    SECTION("Distance calculation check 2") {
+    SUBCASE("Distance calculation check 2") {
         Coord a = Coord(0,0);
         Coord b = Coord(0,1);
         double dist = distance(a,b);
         REQUIRE(dist == 1.0);
     }
-    SECTION("Distance calculation check 3") {
+    SUBCASE("Distance calculation check 3") {
         Coord a = Coord(0,0);
         Coord b = Coord(1,0);
         double dist = distance(a,b);
         REQUIRE(dist == 1.0);
     }
-    SECTION("Distance calculation check 4") {
+    SUBCASE("Distance calculation check 4") {
         Coord a = Coord(0,0);
         Coord b = Coord(1,1);
         double dist = distance(a,b);
         REQUIRE(dist == sqrt(2.0));
     }
-    SECTION("Distance calculation check 5") {
+    SUBCASE("Distance calculation check 5") {
         Coord a = Coord(0,0);
         Coord b = Coord(2,2);
         double dist = distance(a,b);
